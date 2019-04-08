@@ -13,7 +13,7 @@ github_repo: "https://github.com/tristanbes/devops-life.git" # you code reposito
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "CTO Y-Proximité (Fiducial). Symfony certified developper."
-sidebar-avatar: /img/post-bg-desk.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/logo.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # SNS settings
 RSS: true
