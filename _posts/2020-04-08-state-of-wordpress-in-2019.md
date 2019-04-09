@@ -15,13 +15,13 @@ tags:
     - best practices
 ---
 
-Ok, so you chose to start a new WordPress project (or someone chose for you) ? Well good news, it's 2019, it doesn't have to suck from the start anymore; Here's what I advise you to follow.
+Ok, so you chose to start a new WordPress project (or someone chose for you) ? Well good news, it's 2019, it doesn't have to suck from the start anymore;
 
-In this article, I'm not going to explain everything in details, that would require me to write a book about it. I will just point out directions: What you can do and how to do it. It's designed for everyone, web developers, backend developers, front-end developers...
+In this article, I'm not going to explain everything in details, that would require me to write a book about it. I will just point out directions: **what you can do better than the broken official way of doing** that was legitimate 10 years ago. It's designed for everyone, web developers, backend developers, front-end developers...
 
-I promise you, *no more than 3 minutes of reading* per category.
+I promise you that there is *no more than 3 minutes of reading* per chapter.
 
-In the company I work for, we have 150+ WordPress sites. I made the decision for the new ones to adopt everything I wrote in this article, and slowly migrate the legacy one. Already 15% of them are using this architecture at the time I was writing this article.
+In the company I work for, we have 150+ WordPress sites. I made the decision for the new ones to adopt everything I wrote in this article, and slowly migrate the legacy ones. Already ~10% of them are using this architecture at the time I was writing this article.
 
 Note: I'm accepting [pull requests](https://github.com/tristanbes/devops-life) to fix english mistakes if you catch them.
 
@@ -29,21 +29,21 @@ Note: I'm accepting [pull requests](https://github.com/tristanbes/devops-life) t
 
 # Use Bedrock Edition
 
-It's **THE** starting point of this article. Bedrock is a WordPress boilerplate where you can install WordPress as a package via Composer.
-
-The boilerplate, created by [Roots](https://roots.io/), leverages the use of modern development tools and embrace the [12 Factor app methodology](https://12factor.net/).
+It's **THE** starting point of this article. Bedrock is a WordPress boilerplate created by [Roots](https://roots.io/). It leverages the use of modern development tools and embrace the [12 Factor app methodology](https://12factor.net/). Some of the things WordPress can't/won't do because of their dinosaur 🦖 status in the PHP world.
 
 The main advantages of this boilerplate are:
 
 ## Support of environment variables
 
-If you worked with modern software applications, you're familiar with the concept of having all of your application configuration stored as environment variables.
+If you worked with modern software applications, you're familiar with the concept of having your application configuration stored as environment variables.
 
-It allows you to ease having multiple environments such as `production`, `staging` and `development` where you can for example only enable sending emails on `production`, without the need of constantly changing values depending on which environment you are.
+The benefit of having environment variables is for you to have multiple environments such as `production`, `staging` and `development` where you can for example only enable sending emails on `production`, without the need of constantly changing values depending on which environment you are.
 
-In 2019, every major frameworks has a concept of environnement variables in the PHP world: Symfony, Laravel, Yii. It's a common practice that exists since decades on Windows and Unix world.
+In 2019, every major frameworks has a concept of environnement variables in the PHP world: *Symfony*, *Laravel*, *Yii*. It's a common practice that exists since decades on Windows and Unix world.
 
-Environement variables can be stored as a file named `.env.example` which you have to commit on your git repository. They look a lot like this:
+Environement variables can be stored as a file, for `development` and injected in your web server for `staging` and `production` environments. Don't freak out, a lot of decent hosting companies provide an UI to manipulate environement variables. For example, look at what [heroku do for environment variables](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard).
+
+Environment variables look a lot like this:
 
 ```bash
 DATABASE_URL=mysql://john_doe:p4sSWorD@127.0.0.1:3306/db_awesome_blog
@@ -58,42 +58,43 @@ Everything is organized better and as a result, it's easier to find what you wer
 
 ```bash
 ├── composer.json
+├── .env <----------------- where majority of the configuration will happen, must not be commited inside git repository
 ├── config
 │   ├── application.php
 │   └── environments
 │       ├── development.php
 │       ├── staging.php
 │       └── production.php
-├── vendor  <-- where the 3rd party code lives
+├── vendor  <-------------- where the 3rd party code lives
 └── web
     ├── app
     │   ├── mu-plugins
     │   ├── plugins
     │   ├── themes
     │   └── uploads
-    ├── wp-config.php
-    ├── index.php
-    └── wp <-- WordPress files
+    ├── wp-config.php <-- do not touch this file
+    ├── index.php <------ entry point of your application, each web request are send through this file
+    └── wp <------------- WordPress files
 ```
 
-Bonus point to security since the web root (entry point of your application) `web/index.php` is isolated from the rest of the structure.
+Bonus point to security since the web root (entry point of your application) `web/index.php` is isolated from the rest of the structure. It means that your visitor can't access your `config/production.php` file since it's outside `web/`.
 
 
 ## Reproductible builds
 
-The concept of [reproductible builds](https://en.wikipedia.org/wiki/Reproducible_builds) can sum up as: no matter when or where i'm going to build and deploy the application, I will always have the same version of the code (and plugins)
+The concept of [reproductible builds](https://en.wikipedia.org/wiki/Reproducible_builds) can sum up as: no matter when or where i'm going to build and deploy the application, I will always have the same version of the code (and plugins).
 
 Since you're going to be working on you local environment (if it's not already the case 👀), you need to guarantee that what you have on your computer will be exactly the same that what you'll have on your production. Let me take an example on why this is important.
 
 Let's say you've been running a website in production for like a year until there's a nasty hardware crash on you server. Now all your files are lost. Luckily for you you did things right and had your `uploads/` directory and database backup somewhere in the cloud.
 
-The next step will be to re-install WordPress using the database and media backup. Then re-install the 20 plugins you had on that website. In one year, plugins evolve (and it's good), but your theme, or some of your features might not be compliant with the version of 3.5 of WooCommerce. It might result of a broken website
+The next step will be to re-install WordPress using the database and media backup. Then re-install the 20 plugins you had on that website. In one year, plugins evolve (and it's good), but your theme, or some of your features might not be compatible with WooCommerce `v3.5`. It might result of a broken website.
 
-Another example is when you're working as a team on a project, without reproductable builds you will end up with the frontend person working with WordPress 5.1.1 while the developper still has version 4.9.10 and won't be able to reproduce the bug you have with that version.
+Another example is when you're working as a team on a project, without reproductible builds you will end up with the frontend person working with WordPress 5.1.1 while the developper still has version 4.9.10 and won't be able to reproduce the bug you have with that setup.
 
-Because of this concept, you'll need to **forbid any type of plugins/themes installation or updating from the WordPress backend**. By default Bedrock will take care of this when you are in the `production` environment. Since WordPress is also a composer dependency, updating it is as simple as `composer update roots/wordpress`
+Because of this concept, you'll need to **forbid any type of plugins/themes installation or updating from the WordPress backend**. By default Bedrock will take care of this when you are in the `production` environment. Since WordPress is also a composer dependency, updating it is as simple as `composer update roots/wordpress`.
 
-But how to guarantee that ? Well the answer is just below: use **Composer**.
+But how to guarantee reproductible builds ? Well the answer is just below: use **Composer**.
 
 # Use Composer
 
@@ -105,22 +106,32 @@ Do you want to install `WooCommerce` ? Go inside your terminal and type:
 
 It'll fetch the latest version and freeze the version you got on your `composer.lock`. This file is what guarante you to get always the same version of everything no matter where you download your project dependencies, or where you do it. Because of the importance of this file, it has to be commited ⚠️.
 
+A good article can be found on [how using composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
+
 All the plugins are also installable via composer; How ? **3 scenarios are possible**:
 
-- The plugin provides a `composer.json`; The developper or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
+## The plugin provides a `composer.json`
 
+The developper or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
 
-- The plugin does not provide a `composer.json`; If you don't see the plugin on [packagist.org](https://packagist.org/), then the plugin does not have a `composer.json` file.
-Don't worry, **wpackagist** comes to the rescue. Outlandish created this project to offer a way to install 100% of the plugins and themes using the main WordPress repository. So, this particular WordPress plugin cannot be found on packagist.org, so let's use [wpackagist](https://wpackagist.org/) instead:
+## The plugin does not provide a `composer.json`
+
+If you don't see the plugin on [packagist.org](https://packagist.org/), then the plugin does not have a `composer.json` file.
+Don't worry, **wpackagist** comes to the rescue. Outlandish created this project to offer a way to install 100% of the plugins and themes using the main WordPress repository. So, this particular WordPress plugin cannot be found on packagist.org, so let's [use wpackagist](https://wpackagist.org/) instead:
 
 `composer require wpackagist-plugin/cookie-law-info`
 
-- The plugin is a paid/private one and does not have a `composer.json`. You'll have multiple options from there:
-   - [Open a ticket to their support]((https://github.com/elementor/elementor/issues/4042)) or on their Github and ask to provide a way to install their plugin via composer. You are their customer, you are paying for a product that you can't install in a proper way. They should care. Bad players are Advanced Custom Field, Elementor and good player is [Deliciours brains](https://deliciousbrains.com/wp-migrate-db-pro/doc/installing-via-composer/) (Migrate DB Pro, Offload Media...).
-   - [Use alternative solutions](https://github.com/PhilippBaschke/acf-pro-installer) when available.
-   - Create a new private Github repository (it's free), copy/paste the code there and add a [composer.json like in this example](https://gist.github.com/tristanbes/fbacfb2ce6990e7fdc7411a73715fd92), tag a new release using [Github releases](https://help.github.com/en/articles/creating-releases), and then require this package using a custom repository. All the procedure is [listed in detail on roots.io website](https://roots.io/guides/private-or-commercial-wordpress-plugins-as-composer-dependencies/). I'd advise, if you have the budget for, to use [Private Packagist](https://packagist.com/) to host your private packages.
+## The plugin is a paid/private one and does not have a `composer.json`
 
-A good article can be found on [how using composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
+You'll have multiple options from there:
+
+   - [Open a ticket to their support]((https://github.com/elementor/elementor/issues/4042)) or on their Github and ask to provide a way to install their plugin via composer. You are their customer, you are paying for a product that you can't install in a proper way. They should care.
+     * 👎 Bad players are ACF Pro, Elementor Pro, Formidable Forms
+     * 👍 Good player is [Deliciours brains](https://deliciousbrains.com/wp-migrate-db-pro/doc/installing-via-composer/) (Migrate DB Pro, Offload Media...).
+
+   - [Use alternative solutions](https://github.com/PhilippBaschke/acf-pro-installer) when available.
+
+   - Create a new private Github repository (it's free), copy/paste the code there and add a [composer.json like in this example](https://gist.github.com/tristanbes/fbacfb2ce6990e7fdc7411a73715fd92), tag a new release using [Github releases](https://help.github.com/en/articles/creating-releases), and then require this package using a custom repository. All the procedure is [listed in detail on roots.io website](https://roots.io/guides/private-or-commercial-wordpress-plugins-as-composer-dependencies/). I'd advise, if you have the budget for, to use [Private Packagist](https://packagist.com/) to host your private packages.
 
 # Use a better templating system than PHP: "I'm yelling timber" !
 
