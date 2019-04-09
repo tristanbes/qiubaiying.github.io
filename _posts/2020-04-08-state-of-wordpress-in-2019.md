@@ -310,7 +310,7 @@ Some example of good PaaS are:
 
 # Note for WordPress plugins developpers
 
-In order to make the WordPress ecosystem a better place please, you have to respect 5 things:
+In order to make the WordPress ecosystem a better place please, you have to respect at least 5 things:
 
 ⚠️ Don’t asssume that your plugin user will stores their uploaded files on the local file system. **Assume they don’t**. Abstract your file manipulation by using for instance [Flysystem](https://flysystem.thephpleague.com/docs/).
 
@@ -323,7 +323,7 @@ The main reason behind this reasoning is:
 ⚠️ Provide a way to configure your plugin through environment variables, and use a fallback using the database if the environement variable is not found.
 `Environment variables > Database`; This allow us to automate plugins installation and put all the configuration in one place.
 
-⚠️ Provide a way to install your plugin with **composer**, it requires a `composer.json` file with 10 lines of code at the minimum. Just watch some examples [here](https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/blob/master/composer.json), [here](https://github.com/awesomemotive/WP-Mail-SMTP/blob/master/composer.json#L4) or [here](https://github.com/Yoast/wordpress-seo/blob/trunk/composer.json). The next step is to tag your releases using [Github Releases](https://github.com/deliciousbrains/wp-migrate-db/releases) and submit your package to [packagist.org](https://packagist.org/packages/submit) by entering the Github URL of your repository.
+⚠️ Provide a way to install your plugin with **composer**, it requires a `composer.json` file with 10 lines of code at the minimum. Just watch some examples [here](https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/blob/master/composer.json), [here](https://github.com/awesomemotive/WP-Mail-SMTP/blob/master/composer.json#L4) or [here](https://github.com/Yoast/wordpress-seo/blob/trunk/composer.json). The next step is to tag your releases using [Github Releases](https://github.com/deliciousbrains/wp-migrate-db/releases) respecting SemVer and submit your package to [packagist.org](https://packagist.org/packages/submit) by entering the Github URL of your repository.
 
 ⚠️ Support [maintained version of PHP](https://www.php.net/supported-versions.php)
 
