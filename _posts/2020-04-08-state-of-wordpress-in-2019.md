@@ -23,6 +23,8 @@ I promise you, *no more than 3 minutes of reading* per category.
 
 In the company I work for, we have 150+ WordPress sites. I made the decision for the new ones to adopt everything I wrote in this article, and slowly migrate the legacy one. Already 15% of them are using this architecture at the time I was writing this article.
 
+Note: I'm accepting [pull requests](https://github.com/tristanbes/devops-life) to fix english mistakes if you catch them.
+
 ---
 
 # Use Bedrock Edition
@@ -49,6 +51,33 @@ WP_ENV=development
 WP_HOME=http://my-awesome-wordpress.vm
 WP_SITEURL=${WP_HOME}/wp
 ```
+
+## Better directory structure
+
+Everything is organized better and as a result, it's easier to find what you were looking for. The structure look likes:
+
+```bash
+├── composer.json
+├── config
+│   ├── application.php
+│   └── environments
+│       ├── development.php
+│       ├── staging.php
+│       └── production.php
+├── vendor  <-- where the 3rd party code lives
+└── web
+    ├── app
+    │   ├── mu-plugins
+    │   ├── plugins
+    │   ├── themes
+    │   └── uploads
+    ├── wp-config.php
+    ├── index.php
+    └── wp <-- WordPress files
+```
+
+Bonus point to security since the web root (entry point of your application) `web/index.php` is isolated from the rest of the structure.
+
 
 ## Reproductible builds
 
@@ -80,7 +109,6 @@ All the plugins are also installable via composer; How ? **3 scenarios are possi
 
 - The plugin provides a `composer.json`; The developper or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
 
-NOTE FOR PLUGINS AUTHOR !
 
 - The plugin does not provide a `composer.json`; If you don't see the plugin on [packagist.org](https://packagist.org/), then the plugin does not have a `composer.json` file.
 Don't worry, **wpackagist** comes to the rescue. Outlandish created this project to offer a way to install 100% of the plugins and themes using the main WordPress repository. So, this particular WordPress plugin cannot be found on packagist.org, so let's use [wpackagist](https://wpackagist.org/) instead:
@@ -92,6 +120,7 @@ Don't worry, **wpackagist** comes to the rescue. Outlandish created this project
    - [Use alternative solutions](https://github.com/PhilippBaschke/acf-pro-installer) when available.
    - Create a new private Github repository (it's free), copy/paste the code there and add a [composer.json like in this example](https://gist.github.com/tristanbes/fbacfb2ce6990e7fdc7411a73715fd92), tag a new release using [Github releases](https://help.github.com/en/articles/creating-releases), and then require this package using a custom repository. All the procedure is [listed in detail on roots.io website](https://roots.io/guides/private-or-commercial-wordpress-plugins-as-composer-dependencies/). I'd advise, if you have the budget for, to use [Private Packagist](https://packagist.com/) to host your private packages.
 
+A good article can be found on [how using composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
 
 # Use a better templating system than PHP: "I'm yelling timber" !
 
@@ -202,7 +231,7 @@ Is your theme shipping CSS, Javascript and some PHP ? You should lint them, make
 * [Prettier](https://prettier.io/) - Javascript, CSS...
 * [PHP-CS-Fixer](https://cs.symfony.com/) - PHP (Example of our [.php_cs_dist file that contains linting rules](https://gist.github.com/tristanbes/8f29b6f9336a77fd9b205f3453aae892))
 
-Use whatever building tool/task runner you feel confortable with ([Gulp](https://gulpjs.com/), [Brunch](brunch.io)). If you don't have picked up a tool yet, and you need a simple one, I'd suggest you take a look at **[yprox-cli](https://yprox-cli.netlify.com/)**
+Use whatever building tool/task runner you feel confortable with ([Gulp](https://gulpjs.com/), [Brunch](brunch.io)). If you don't have picked up a tool yet, and you need a simple one, I'd suggest you take a look at **[yProx-CLI](https://github.com/Yproximite/yProx-cli)**
 
 For your own sanity, please don't open code you're downloading from the plugins you use. You might be shocked by the poor code quality you're dealing with and might end up re-writing a whole lot of WordPress plugins.
 
@@ -278,3 +307,24 @@ Some example of good PaaS are:
 - [🇫🇷 Clever Cloud](https://www.clever-cloud.com/en/) (from 26,50€/month)
 
 ⛔️ Don't ever use a FTP or a SFTP to deploy to the production. Since you need to build your project by running `composer install` and maybe build assets by running `yarn build`, the long dead process of copy/paste the project on your FTP are **definitly and finally** dead ⛔️
+
+# Note for WordPress plugins developpers
+
+In order to make the WordPress ecosystem a better place please, you have to respect 5 things:
+
+⚠️ Don’t asssume that your plugin user will stores their uploaded files on the local file system. **Assume they don’t**. Abstract your file manipulation by using for instance [Flysystem](https://flysystem.thephpleague.com/docs/).
+
+The main reason behind this reasoning is:
+- When hosting your application on the cloud, you might want to be able to scale your application by adding new servers.
+- When you host your WordPress on an [immutable infrastructure](https://www.digitalocean.com/community/tutorials/what-is-immutable-infrastructure), which basically means
+    - Either you’re not able to write to the server, preventing any modifications
+    - Either the modifications your made are lost when the project gets redeployed. (A deploy happens each time you merge code on your code repository or when you scale (add or remove servers) on your application. Only what is on your git repository gets deployed on the server.
+
+⚠️ Provide a way to configure your plugin through environment variables, and use a fallback using the database if the environement variable is not found.
+`Environment variables > Database`; This allow us to automate plugins installation and put all the configuration in one place.
+
+⚠️ Provide a way to install your plugin with **composer**, it requires a `composer.json` file with 10 lines of code at the minimum. Just watch some examples [here](https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/blob/master/composer.json), [here](https://github.com/awesomemotive/WP-Mail-SMTP/blob/master/composer.json#L4) or [here](https://github.com/Yoast/wordpress-seo/blob/trunk/composer.json). The next step is to tag your releases using [Github Releases](https://github.com/deliciousbrains/wp-migrate-db/releases) and submit your package to [packagist.org](https://packagist.org/packages/submit) by entering the Github URL of your repository.
+
+⚠️ Support [maintained version of PHP](https://www.php.net/supported-versions.php)
+
+⚠️ Lint your PHP code using PHP-CS-Fixer FFS ! Choose between PSR2 or Symfony preset, but use one and fix your code.
