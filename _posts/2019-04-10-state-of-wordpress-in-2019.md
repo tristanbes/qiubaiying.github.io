@@ -5,7 +5,7 @@ subtitle: A 2019 sane vision for a cleaner WordPress architecture
 categories:
 - blog
 catalog: true
-date:       2019-04-08
+date:       2019-04-10
 author:     Tristan Bessoussa
 header-img: /images.unsplash.com/photo-1519110437047-c6488cf2051d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80
 tags:
