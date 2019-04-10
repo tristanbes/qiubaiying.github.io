@@ -198,6 +198,7 @@ You must only expose only the variables you need per page. I've seen a lot of ex
 
 ```php
 $context['options'] = get_fields('options'); // retrieve all options fields from the database
+
 Timber::render('index.twig', $context); // render the index.twig page with the options passed to the twig context so you can use them inside your view.
 ```
 
