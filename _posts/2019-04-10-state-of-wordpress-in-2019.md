@@ -34,7 +34,7 @@ It's **THE** starting point of this article. Bedrock is a WordPress boilerplate 
 
 The main advantages of this boilerplate are:
 
-## Support of environment variables
+### Support of environment variables
 
 If you worked with modern software applications, you're familiar with the concept of having your application configuration stored as environment variables.
 
@@ -53,7 +53,7 @@ WP_HOME=http://my-awesome-wordpress.vm
 WP_SITEURL=${WP_HOME}/wp
 ```
 
-## Better directory structure
+### Better directory structure
 
 Everything is organized better and as a result, it's easier to find what you were looking for. The structure look likes:
 
@@ -81,7 +81,7 @@ Everything is organized better and as a result, it's easier to find what you wer
 Bonus point to security since the web root (entry point of your application) `web/index.php` is isolated from the rest of the structure. It means that your visitor can't access your `config/production.php` file since it's outside `web/`.
 
 
-## Reproducible builds
+### Reproducible builds
 
 The concept of [reproducible builds](https://en.wikipedia.org/wiki/Reproducible_builds) can sum up as: no matter when or where i'm going to build and deploy the application, I will always have the same version of the code (and plugins).
 
