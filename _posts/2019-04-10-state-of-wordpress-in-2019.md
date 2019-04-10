@@ -23,7 +23,7 @@ I promise you that there is *no more than 3 minutes of reading* per chapter.
 
 In the company I work for, we have 150+ WordPress sites. I made the decision for the new ones to adopt everything I wrote in this article, and slowly migrate the legacy ones. Already ~10% of them are using this architecture at the time I was writing this article.
 
-Note: I'm accepting [pull requests](https://github.com/tristanbes/devops-life) to fix english mistakes if you catch them.
+Note: I'm accepting [pull requests](https://github.com/tristanbes/devops-life/blob/gh-pages/_posts/2019-04-10-state-of-wordpress-in-2019.md) to fix english mistakes if you catch them.
 
 ---
 
@@ -41,7 +41,7 @@ The benefit of having environment variables is for you to have multiple environm
 
 In 2019, every major frameworks has a concept of environnement variables in the PHP world: *Symfony*, *Laravel*, *Yii*. It's a common practice that exists since decades on Windows and Unix world.
 
-Environement variables can be stored as a file, for `development` and injected in your web server for `staging` and `production` environments. Don't freak out, a lot of decent hosting companies provide an UI to manipulate environement variables. For example, look at what [heroku do for environment variables](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard).
+Environment variables can be stored as a file, for `development` and injected in your web server for `staging` and `production` environments. Don't freak out, a lot of decent hosting companies provide an UI to manipulate environment variables. For example, look at what [heroku do for environment variables](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard).
 
 Environment variables look a lot like this:
 
@@ -58,7 +58,7 @@ Everything is organized better and as a result, it's easier to find what you wer
 
 ```bash
 ├── composer.json
-├── .env <----------------- where majority of the configuration will happen, must not be commited inside git repository
+├── .env <----------------- where majority of the configuration will happen, must not be committed inside git repository
 ├── config
 │   ├── application.php
 │   └── environments
@@ -80,9 +80,9 @@ Everything is organized better and as a result, it's easier to find what you wer
 Bonus point to security since the web root (entry point of your application) `web/index.php` is isolated from the rest of the structure. It means that your visitor can't access your `config/production.php` file since it's outside `web/`.
 
 
-## Reproductible builds
+## Reproducible builds
 
-The concept of [reproductible builds](https://en.wikipedia.org/wiki/Reproducible_builds) can sum up as: no matter when or where i'm going to build and deploy the application, I will always have the same version of the code (and plugins).
+The concept of [reproducible builds](https://en.wikipedia.org/wiki/Reproducible_builds) can sum up as: no matter when or where i'm going to build and deploy the application, I will always have the same version of the code (and plugins).
 
 Since you're going to be working on you local environment (if it's not already the case 👀), you need to guarantee that what you have on your computer will be exactly the same that what you'll have on your production. Let me take an example on why this is important.
 
@@ -90,11 +90,11 @@ Let's say you've been running a website in production for like a year until ther
 
 The next step will be to re-install WordPress using the database and media backup. Then re-install the 20 plugins you had on that website. In one year, plugins evolve (and it's good), but your theme, or some of your features might not be compatible with WooCommerce `v3.5`. It might result of a broken website.
 
-Another example is when you're working as a team on a project, without reproductible builds you will end up with the frontend person working with WordPress 5.1.1 while the developper still has version 4.9.10 and won't be able to reproduce the bug you have with that setup.
+Another example is when you're working as a team on a project, without reproducible builds you will end up with the frontend person working with WordPress 5.1.1 while the developer still has version 4.9.10 and won't be able to reproduce the bug you have with that setup.
 
 Because of this concept, you'll need to **forbid any type of plugins/themes installation or updating from the WordPress backend**. By default Bedrock will take care of this when you are in the `production` environment. Since WordPress is also a composer dependency, updating it is as simple as `composer update roots/wordpress`.
 
-But how to guarantee reproductible builds ? Well the answer is just below: use **Composer**.
+But how to guarantee reproducible builds ? Well the answer is just below: use **Composer**.
 
 # Use Composer
 
@@ -104,7 +104,7 @@ Do you want to install `WooCommerce` ? Go inside your terminal and type:
 
 `composer require woocommerce/woocommerce`
 
-It'll fetch the latest version and freeze the version you got on your `composer.lock`. This file is what guarante you to get always the same version of everything no matter where you download your project dependencies, or where you do it. Because of the importance of this file, it has to be commited ⚠️.
+It'll fetch the latest version and freeze the version you got on your `composer.lock`. This file is what e you to get always the same version of everything no matter where you download your project dependencies, or where you do it. Because of the importance of this file, it has to be committed ⚠️.
 
 A good article can be found on [how using composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
 
@@ -112,7 +112,7 @@ All the plugins are also installable via composer; How ? **3 scenarios are possi
 
 ## The plugin provides a `composer.json`
 
-The developper or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
+The developer or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
 
 ## The plugin does not provide a `composer.json`
 
@@ -136,7 +136,7 @@ You'll have multiple options from there:
 # Use a better templating system than PHP: "I'm yelling timber" !
 
 What about the templating system ?
-PHP is not a good templating system. Hard to read, hard to write, and let's not fool ourselves, we're no longer in the early 2010, we have tools created especially for each use case. The best PHP templating system is [Twig](https://twig.symfony.com/). It is widely use in the Symfony ecosystem (but not only).
+PHP is not a good templating system. Hard to read, hard to write, and let's not fool ourselves, we're no longer in the early 2010, we have tools created especially for each use case. The best PHP templating system is [Twig](https://twig.symfony.com/). It is widely used in the Symfony ecosystem (but not only).
 
 So how can we use Twig inside a WordPress project ? Luckily for us, there's a project called  [Timber](https://timber.github.io).
 
@@ -167,11 +167,11 @@ Note that it caches the the template and not the data. Any edits made to the `.t
 
 # Prefer storing your assets on the cloud
 
-Storing your assets on the local filesystem under `uploads/` directory is nice, but at some point, you'll have to synchronize this folder through all your environements, otherwise your local version will a complete different set of medias than the production and vice-versa.
+Storing your assets on the local filesystem under `uploads/` directory is nice, but at some point, you'll have to synchronize this folder through all your environments, otherwise your local version will a complete different set of medias than the production and vice-versa.
 
-Remember when we talked about reproducable builds ? Wouldn't it be nice if we can store our media remotly so we don't use local filesystem ? Spoiler alert, yes, it's nice.
+Remember when we talked about reproducable builds ? Wouldn't it be nice if we can store our media remotely so we don't use local filesystem ? Spoiler alert, yes, it's nice.
 
-The one other major advantage of this technique is **allow your website to scale** to recieve a huge pike of traffic load. All you have to do is to add more servers (horizontal scaling), since you have a reproductible build, the project and plugins will be the same on server number 1, 2, ... 23, 24.
+The one other major advantage of this technique is **allow your website to scale** to receive a huge spike of traffic load. All you have to do is to add more servers (horizontal scaling), since you have a reproducible build, the project and plugins will be the same on server number 1, 2, ... 23, 24.
 
 Services you can use to store your media on the cloud :
 - [Amazon S3](https://aws.amazon.com/s3/). The most famous, yet, not the cheapest one 💸.
@@ -218,13 +218,13 @@ $context['options']['logo_footer_img'] = get_fields('logo_img', 'options');
 </footer>
 ```
 
-And what about videos and images fields ? If you are using them, you should know that if you retrieve them "as is" using the `get_field('my_youtube_video')`, the code will try to detect the metadata (size, orientation, lenght etc..) of the videos and images.
+And what about videos and images fields ? If you are using them, you should know that if you retrieve them "as is" using the `get_field('my_youtube_video')`, the code will try to detect the metadata (size, orientation, length...) of the videos and images.
 
-What's the matter here ? Well, since you're hosting your medias on the cloud (or a remote service, eg: YouTube in this example), the video and images has to be downloaded on the server side to allow retrieve this information you won't need in 99% of the case. In this situation doing external HTTP calls from your server to the internet adds precious extra time and kills your webperformance.
+What's the matter here ? Well, since you're hosting your medias on the cloud (or a remote service, eg: YouTube in this example), the video and images has to be downloaded on the server side to allow retrieve this information you won't need in 99% of the case. In this situation doing external HTTP calls from your server to the internet adds precious extra time and kills your site's performance.
 
-I've seen project spending almost 1second doing external calls, preventing the server to send HTML to the browser by fetching just 10 images information from the cloud.
+I've seen project spending almost 1 second doing external calls, preventing the server to send HTML to the browser by fetching just 10 images information from the cloud.
 
-In those cases you need to use `get_field('my_youtube_video', null, false)`. The last option (`false`), tells to retrieve the field (in this case, the YouTube url of the video, without any formatting or aditionnal treatment). One other case is to set the configuration of the field as a "URL" field, (and not oEmbed), and for images, "Image URL"
+In those cases you need to use `get_field('my_youtube_video', null, false)`. The last option (`false`), tells to retrieve the field (in this case, the YouTube url of the video, without any formatting or additionnal treatment). One other case is to set the configuration of the field as a "URL" field, (and not oEmbed), and for images, "Image URL"
 
 Explicit is better than implicit. It helps your colleague to provide a more accurate code review of your work. That work is harder when you don't know what your template has access to.
 
@@ -240,16 +240,16 @@ Is your theme shipping CSS, Javascript and some PHP ? You should lint them, make
 * [ESlint](https://eslint.org/) - Javascript
 * [stylelint](https://stylelint.io/) - CSS
 * [Prettier](https://prettier.io/) - Javascript, CSS...
-* [PHP-CS-Fixer](https://cs.symfony.com/) - PHP (Example of our [.php_cs_dist file that contains linting rules](https://gist.github.com/tristanbes/8f29b6f9336a77fd9b205f3453aae892))
+* [PHP-CS-Fixer](https://cs.symfony.com/) - PHP (Example of our [.php_cs_dist file](https://gist.github.com/tristanbes/8f29b6f9336a77fd9b205f3453aae892) that contains linting rules)
 
-Use whatever building tool/task runner you feel confortable with ([Gulp](https://gulpjs.com/), [Brunch](brunch.io)). If you don't have picked up a tool yet, and you need a simple one, I'd suggest you take a look at **[yProx-CLI](https://github.com/Yproximite/yProx-cli)**
+Use whatever building tool/task runner you feel comfortable with ([Gulp](https://gulpjs.com/), [Brunch](https://brunch.io)). If you don't have picked up a tool yet, and you need a simple one, I'd suggest you take a look at **[yProx-CLI](https://github.com/Yproximite/yProx-cli)** that we've been using at Yproximite for some times and just released as an open source project.
 
 For your own sanity, please don't open code you're downloading from the plugins you use. You might be shocked by the poor code quality you're dealing with and might end up re-writing a whole lot of WordPress plugins.
 
 # Use a continuous integration (CI) service
 
-Use a CI (Travis, Gitlab, CircleCI, Jenkins)
-Here's our base `.travis.yml` file that ensure our `composer.json` is valid, that our PHP Code is linted and same goes for our JavaScript files; No pull requests should be merged if you have linting errors that will never be fixed once they hit the production.
+Use a CI ([Travis](https://travis-ci.org/), [Gitlab](https://about.gitlab.com/product/continuous-integration/), [CircleCI](https://circleci.com/), [Jenkins](https://jenkins.io/)).
+Here's our base `.travis.yml` file that ensure our `composer.json` is valid, that our PHP Code is linted and same goes for our JavaScript files; No pull requests should be merged if you have linting errors that will never be fixed once they hit the production. This will allow your peer to review your code and focus on important things.
 
 ```
 dist: trusty
@@ -288,19 +288,19 @@ script:
 
 # Setup an automated dependency updates tool
 
-Since we have 150 WordPress projects in our organization, running `composer update` on all of them once per week is
+Since we have 150 WordPress projects in our organization, running `composer update` on all of them once per week is not something we want to do, we had to figure how to handle the updates.
 
-We were using [ManageWP](https://managewp.com/) to update WordPress and all of their dependencies, but this option is now off the table since it breaks the concept of reproductible builds. Nothing should alter/mutate your environement. The code should be exactly the same like in your git repository.
+We were using [ManageWP](https://managewp.com/) to update WordPress and all of their dependencies, but this option is now off the table since it breaks the concept of reproducible builds. Nothing should alter/mutate your environment. The code should be exactly the same like in your git repository.
 
-One viable option for us was to delegate the updating process to [Dependabot](https://dependabot.com/) which job is to open a pull request when updates are available. Alternatives exists, for exemple, [Renovate](https://renovatebot.com/).
+One viable option for us was to delegate the updating process to [Dependabot](https://dependabot.com/) which job is to open a pull request when updates are available. Alternatives exists, for example, [Renovate](https://renovatebot.com/).
 
 We configured it to automatically merge the pull requests if the package update is a major or a minor (`v1.0.0 -> v1.1.4` will be merged automatically, but `v1.0.0 -> v2.0.0` won't);
 
-⚠️ The WordPress ecosystem does not necessarly respect the [SemVer](https://semver.org/), because... (I'm still looking for a reason...).
+⚠️ The WordPress ecosystem does not necessarily respect the [SemVer](https://semver.org/), because... (I'm still looking for a reason...).
 
-Since we choose a "Platform as a Service" (PaaS) to host all of our WordPress, as soon as a PullRequest gets merged on master branch, the project gets re-deployed on the production.
+Since we choose a "Platform as a Service" (PaaS) to host all of our WordPress, as soon as a pull request gets merged on master branch, the project gets re-deployed on the production.
 
-No matter which hosting you chose, you should have automatic deployment, otherwise, the project will be up-to-date but will never hit the production if you need to re-deploy each project if you have a huge ammount of them.
+No matter which hosting you chose, you should have automatic deployment, otherwise, the project will be up-to-date but will never hit the production if you need to re-deploy each project if you have a huge amount of them.
 
 # Choose the right hosting
 
@@ -317,13 +317,13 @@ Some example of good PaaS are:
 - [🇫🇷 Scalingo](https://scalingo.com/) (from 10,80€/month)
 - [🇫🇷 Clever Cloud](https://www.clever-cloud.com/en/) (from 26,50€/month)
 
-⛔️ Don't ever use a FTP or a SFTP to deploy to the production. Since you need to build your project by running `composer install` and maybe build assets by running `yarn build`, the long dead process of copy/paste the project on your FTP are **definitly and finally** dead ⛔️
+⛔️ Don't ever use a FTP or a SFTP to deploy to the production. Since you need to build your project by running `composer install` and maybe build assets by running `yarn build`, the long dead process of copy/paste the project on your FTP are **definitely and finally** dead ⛔️
 
-# Note for WordPress plugins developpers
+# Note for WordPress plugins developers
 
 In order to make the WordPress ecosystem a better place please, you have to respect at least 5 things:
 
-⚠️ Don’t asssume that your plugin user will stores their uploaded files on the local file system. **Assume they don’t**. Abstract your file manipulation by using for instance [Flysystem](https://flysystem.thephpleague.com/docs/).
+⚠️ Don’t assume that your plugin user will stores their uploaded files on the local file system. **Assume they don’t**. Abstract your file manipulation by using for instance [Flysystem](https://flysystem.thephpleague.com/docs/).
 
 The main reason behind this reasoning is:
 - When hosting your application on the cloud, you might want to be able to scale your application by adding new servers.
@@ -331,11 +331,11 @@ The main reason behind this reasoning is:
     - Either you’re not able to write to the server, preventing any modifications
     - Either the modifications your made are lost when the project gets redeployed. (A deploy happens each time you merge code on your code repository or when you scale (add or remove servers) on your application. Only what is on your git repository gets deployed on the server.
 
-⚠️ Provide a way to configure your plugin through environment variables, and use a fallback using the database if the environement variable is not found.
-`Environment variables > Database`; This allow us to automate plugins installation and put all the configuration in one place.
+⚙ Provide a way to configure your plugin through environment variables, and use a fallback using the database if the environment variable is not found.
+**Environment variables > Configuration stored inside the DB** in terms of importance; This allow us to automate plugins installation and put all the configuration in one place.
 
-⚠️ Provide a way to install your plugin with **composer**, it requires a `composer.json` file with 10 lines of code at the minimum. Just watch some examples [here](https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/blob/master/composer.json), [here](https://github.com/awesomemotive/WP-Mail-SMTP/blob/master/composer.json#L4) or [here](https://github.com/Yoast/wordpress-seo/blob/trunk/composer.json). The next step is to tag your releases using [Github Releases](https://github.com/deliciousbrains/wp-migrate-db/releases) respecting SemVer and submit your package to [packagist.org](https://packagist.org/packages/submit) by entering the Github URL of your repository.
+🎻 Make your plugin installable with **composer**, it requires a `composer.json` file with 10 lines of code at the minimum. Just watch some examples [here](https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/blob/master/composer.json), [here](https://github.com/awesomemotive/WP-Mail-SMTP/blob/master/composer.json#L4) or [here](https://github.com/Yoast/wordpress-seo/blob/trunk/composer.json). The next step is to tag your releases using [Github Releases](https://github.com/deliciousbrains/wp-migrate-db/releases) respecting SemVer and submit your package to [packagist.org](https://packagist.org/packages/submit) by entering the Github URL of your repository.
 
-⚠️ Support [maintained version of PHP](https://www.php.net/supported-versions.php)
+🔒 Support [maintained version of PHP](https://www.php.net/supported-versions.php)
 
-⚠️ Lint your PHP code using PHP-CS-Fixer FFS ! Choose between PSR2 or Symfony preset, but use one and fix your code.
+💅🏽 Lint your PHP code using PHP-CS-Fixer FFS ! Choose between PSR2 or Symfony preset, but use one and fix your code.

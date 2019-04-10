@@ -86,5 +86,12 @@ service-worker: true
 
 # Friends
 friends: [
-
+  {
+      title: "Seek Team",
+      href: "https://www.seek-team.com"
+  },
+  {
+    title: "Symfony profile",
+    href: "https://connect.symfony.com/profile/sf_tristanb"
+  }
 ]
