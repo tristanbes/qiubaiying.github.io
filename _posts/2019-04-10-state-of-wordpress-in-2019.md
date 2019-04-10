@@ -13,6 +13,7 @@ tags:
     - Architecture
     - composer
     - best practices
+    - Bedrock
 ---
 
 Ok, so you chose to start a new WordPress project (or someone chose for you) ? Well good news, it's 2019, it doesn't have to suck from the start anymore;
@@ -88,7 +89,7 @@ Since you're going to be working on you local environment (if it's not already t
 
 Let's say you've been running a website in production for like a year until there's a nasty hardware crash on you server. Now all your files are lost. Luckily for you you did things right and had your `uploads/` directory and database backup somewhere in the cloud.
 
-The next step will be to re-install WordPress using the database and media backup. Then re-install the 20 plugins you had on that website. In one year, plugins evolve (and it's good), but your theme, or some of your features might not be compatible with WooCommerce `v3.5`. It might result of a broken website.
+The next step will be to re-install WordPress using the database and media backup. Then re-install the 20 plugins you had on that website. In one year, plugins evolve (and it's good), but your theme, or some of your features might not be compatible with WooCommerce `v3.5`. It might result of a **broken website**.
 
 Another example is when you're working as a team on a project, without reproducible builds you will end up with the frontend person working with WordPress 5.1.1 while the developer still has version 4.9.10 and won't be able to reproduce the bug you have with that setup.
 
@@ -104,28 +105,28 @@ Do you want to install `WooCommerce` ? Go inside your terminal and type:
 
 `composer require woocommerce/woocommerce`
 
-It'll fetch the latest version and freeze the version you got on your `composer.lock`. This file is what e you to get always the same version of everything no matter where you download your project dependencies, or where you do it. Because of the importance of this file, it has to be committed ⚠️.
+It'll fetch the latest version and freeze the version you got on your `composer.lock`. This file is what is used to always get the same version of everything no matter where you download your project dependencies, or where you do it when you run `composer install`. Because of the importance of this file, it has to be committed ⚠️.
 
-A good article can be found on [how using composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
+A good article can be found on [how to use composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
 
 All the plugins are also installable via composer; How ? **3 scenarios are possible**:
 
-## The plugin provides a `composer.json`
+### The plugin provides a `composer.json`
 
 The developer or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
 
-## The plugin does not provide a `composer.json`
+### The plugin does not provide a `composer.json`
 
 If you don't see the plugin on [packagist.org](https://packagist.org/), then the plugin does not have a `composer.json` file.
 Don't worry, **wpackagist** comes to the rescue. Outlandish created this project to offer a way to install 100% of the plugins and themes using the main WordPress repository. So, this particular WordPress plugin cannot be found on packagist.org, so let's [use wpackagist](https://wpackagist.org/) instead:
 
 `composer require wpackagist-plugin/cookie-law-info`
 
-## The plugin is a paid/private one and does not have a `composer.json`
+### The plugin is a paid/private one and does not have a `composer.json`
 
 You'll have multiple options from there:
 
-   - [Open a ticket to their support]((https://github.com/elementor/elementor/issues/4042)) or on their Github and ask to provide a way to install their plugin via composer. You are their customer, you are paying for a product that you can't install in a proper way. They should care.
+   - [Open a ticket to their support](https://github.com/elementor/elementor/issues/4042) or on their Github and ask to provide a way to install their plugin via composer. You are their customer, you are paying for a product that you can't install in a proper way. They should care.
      * 👎 Bad players are ACF Pro, Elementor Pro, Formidable Forms
      * 👍 Good player is [Deliciours brains](https://deliciousbrains.com/wp-migrate-db-pro/doc/installing-via-composer/) (Migrate DB Pro, Offload Media...).
 
@@ -148,11 +149,9 @@ Once you start writing your themes using Twig, **you won't go back to plain PHP*
 
 **Pro tip**: Since you're not designing your themes with plain PHP anymore but with Twig, the server needs to transform your `.twig` files into `.php` files. This phase is called compilation. It adds extra time to do that. Luckily there's a cache system that stores the compiled templates on your file system so Twig doesn't recompile your twig templates on each request that your server needs to process.
 
-By default, Timber does not activate that cache. Here's how to activate it safely you'll save up to 40% of generation time by doing so.
+By default, Timber does not activate that cache.
 
-{% include image.html width="688" url="/img/timber-cache.png" description="Difference of rendering time before/after enabling Twig cache system. <a href='https://blackfire.io/profiles/compare/5b79d23e-3bb8-4089-8e56-82aaae679b6b/graph'>More details on this Blackfire trace</a>." %}
-
-Inside your theme's `functions.php`
+Here's how to activate it safely you'll save up to 40% of generation time by doing so Inside your theme's `functions.php`
 
 ```php
 // Activate Twig caching.
@@ -163,7 +162,9 @@ if (class_exists('Timber') && WP_ENV === 'production') {
 // Replace WP_ENV === 'production' by !WP_DEBUG if you are NOT in a Bedrock structure
 ```
 
-Note that it caches the the template and not the data. Any edits made to the `.twig` templates on the production won't be reflected unless you clear the cache. (Who edits files on production though ? 😱 Certainly not you !)
+{% include image.html width="688" url="/img/timber-cache.png" description="Difference of rendering time before/after enabling Twig cache system. <a href='https://blackfire.io/profiles/compare/5b79d23e-3bb8-4089-8e56-82aaae679b6b/graph'>More details on this Blackfire trace</a>." %}
+
+Note that it caches the the compiled php template and not the data. Any edits made to the `.twig` templates on the production won't be reflected unless you clear the cache. (Who edits files on production though ? 😱 Certainly not you !)
 
 # Prefer storing your assets on the cloud
 
@@ -197,7 +198,6 @@ You must only expose only the variables you need per page. I've seen a lot of ex
 
 ```php
 $context['options'] = get_fields('options'); // retrieve all options fields from the database
-
 Timber::render('index.twig', $context); // render the index.twig page with the options passed to the twig context so you can use them inside your view.
 ```
 
@@ -208,6 +208,7 @@ What to do instead ?
 ```php
 $context['options']['twitter_link'] = get_fields('twitter_link', 'options');
 $context['options']['logo_footer_img'] = get_fields('logo_img', 'options');
+Timber::render('index.twig', $context);
 ```
 
 {% assign ex1 = '{{ options.twitter_link }}' %}
@@ -221,20 +222,21 @@ $context['options']['logo_footer_img'] = get_fields('logo_img', 'options');
 </footer>
 ```
 
-And what about videos and images fields ? If you are using them, you should know that if you retrieve them "as is" using the `get_field('my_youtube_video')`, the code will try to detect the metadata (size, orientation, length...) of the videos and images.
+In real world project, doing this kind of optimization leads to important performance improvements.
 
-What's the matter here ? Well, since you're hosting your medias on the cloud (or a remote service, eg: YouTube in this example), the video and images has to be downloaded on the server side to allow retrieve this information you won't need in 99% of the case. In this situation doing external HTTP calls from your server to the internet adds precious extra time and kills your site's performance.
+{% include image.html width="688" url="/img/blackfire-acf.png" description="Difference of rendering time before/after retrieving only the strict necessary ACF fields. -850 requests to the database and -37% of rendering time ! <a href='https://blackfire.io/profiles/compare/3984573f-3fc2-48fc-9683-2668c3a4a7e5/graph'>More details on this Blackfire trace</a>." %}
+
+Explicit is better than implicit. It helps your colleague to provide a more accurate code review of your work. That work is harder when you don't know what your template has access to.
+
+And what about videos and images fields ? If you are using them, you should know that if you retrieve them "as is" using the `get_field('my_youtube_video')`, the code will try to fetch the metadata (size, orientation, length...) of the videos and images.
+
+What's the matter here ? Well, since you're hosting your medias on the cloud (or a remote service, eg: YouTube in this example), **the video and images has to be downloaded on the server side** to allow retrieve this information you won't need in 98% of the cases. In this situation doing external HTTP calls from your server to the internet adds precious extra time and kills your site's performance.
 
 I've seen project spending almost 1 second doing external calls, preventing the server to send HTML to the browser by fetching just 10 images information from the cloud.
 
 In those cases you need to use `get_field('my_youtube_video', null, false)`. The last option (`false`), tells to retrieve the field (in this case, the YouTube url of the video, without any formatting or additionnal treatment). One other case is to set the configuration of the field as a "URL" field, (and not oEmbed), and for images, "Image URL"
 
-Explicit is better than implicit. It helps your colleague to provide a more accurate code review of your work. That work is harder when you don't know what your template has access to.
-
-In real world project, doing this kind of optimization leads to important performance improvements.
-
-{% include image.html width="688" url="/img/blackfire-acf.png" description="Difference of rendering time before/after retrieving only the strict necessary ACF fields. -850 requests to the database and -37% of rendering time ! <a href='https://blackfire.io/profiles/compare/3984573f-3fc2-48fc-9683-2668c3a4a7e5/graph'>More details on this Blackfire trace</a>." %}
-
+{% include image.html width="688" url="/img/external_http_calls_blackfire.png" description="Difference of rendering time before/after configuring fields as URL fields instead of oEmbed. All the external HTTP calls the server made to fetch the metadata of images or videos were eliminated (-7) and it saved 35% of time (-846ms) ! <a href='https://blackfire.io/profiles/compare/29fc43d1-fce1-447e-9d4e-cef4b2f53750/graph'>More details on this Blackfire trace</a>." %}
 
 # Lint your code
 
@@ -315,7 +317,7 @@ I would strongly advise to go for a PaaS. The main advantages of a Platform as a
 - Easy
 - Isolated (no cross contamination from one site A to site B when hosted on the same server)
 
-Some example of good PaaS are:
+Some examples of PaaS are:
 - [🌍 Heroku](https://www.heroku.com/) (from 14$/month)
 - [🇫🇷 Scalingo](https://scalingo.com/) (from 10,80€/month)
 - [🇫🇷 Clever Cloud](https://www.clever-cloud.com/en/) (from 26,50€/month)
@@ -326,7 +328,7 @@ Some example of good PaaS are:
 
 Here's a list of things you should already be doing, so they don't deserve a chapter on their own:
 
-- Work with a Virtual Machine, that will allow everyone to have the same environment. You can use [trellis](https://roots.io/trellis/) or [manala](http://www.manala.io/) if you're more technical.
+- Work with a Virtual Machine, that will allow everyone to have the same environment. You can use [trellis](https://roots.io/trellis/) or [manala](http://www.manala.io/) if you're more technical
 - Use the latest version of PHP available
 - Work with pull request
 - Review, and ask reviews on your code by your peers
