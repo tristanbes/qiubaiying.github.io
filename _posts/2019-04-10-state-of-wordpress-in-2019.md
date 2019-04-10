@@ -138,7 +138,7 @@ You'll have multiple options from there:
 What about the templating system ?
 PHP is not a good templating system. Hard to read, hard to write, and let's not fool ourselves, we're no longer in the early 2010, we have tools created especially for each use case. The best PHP templating system is [Twig](https://twig.symfony.com/). It is widely used in the Symfony ecosystem (but not only).
 
-So how can we use Twig inside a WordPress project ? Luckily for us, there's a project called  [Timber](https://timber.github.io).
+So how can we use Twig inside a WordPress project ? Luckily for us, there's a project called  [Timber](https://github.com/timber/timber).
 
 > Plugin to write WordPress themes with object-oriented code and the Twig Template Engine
 
@@ -210,11 +210,14 @@ $context['options']['twitter_link'] = get_fields('twitter_link', 'options');
 $context['options']['logo_footer_img'] = get_fields('logo_img', 'options');
 ```
 
+{% assign ex1 = '{{ options.twitter_link }}' %}
+{% assign ex2 = '{{ options.logo_footer_img }}' %}
+
 ```twig
 {# use them inside your .twig template; #}
 <footer>
-    <a href='{{ options.twitter_link }}'>Follow us</a>
-    <img src='{{ options.logo_footer_img }}' />
+    <a href='{{ ex1 }}'>Follow us</a>
+    <img src='{{ ex2 }}' />
 </footer>
 ```
 
@@ -318,6 +321,16 @@ Some example of good PaaS are:
 - [🇫🇷 Clever Cloud](https://www.clever-cloud.com/en/) (from 26,50€/month)
 
 ⛔️ Don't ever use a FTP or a SFTP to deploy to the production. Since you need to build your project by running `composer install` and maybe build assets by running `yarn build`, the long dead process of copy/paste the project on your FTP are **definitely and finally** dead ⛔️
+
+# What you should already be doing
+
+Here's a list of things you should already be doing, so they don't deserve a chapter on their own:
+
+- Work with a Virtual Machine, that will allow everyone to have the same environment. You can use [trellis](https://roots.io/trellis/) or [manala](http://www.manala.io/) if you're more technical.
+- Use the latest version of PHP available
+- Work with pull request
+- Review, and ask reviews on your code by your peers
+- Configure Github to disallow pull request merging if your pull request doesn't have reviews.
 
 # Note for WordPress plugins developers
 
