@@ -16,7 +16,7 @@ tags:
     - Bedrock
 ---
 
-Ok, so you chose to start a new WordPress project (or someone chose for you) ? Well good news, it's 2019, it doesn't have to suck from the start anymore;
+Ok, so you chose to start a new WordPress project (or someone chose for you)? Well good news, it's 2019, it doesn't have to suck from the start anymore;
 
 In this article, I'm not going to explain everything in details, that would require me to write a book about it. I will just point out directions: **what you can do better than the broken official way of doing** that was legitimate 10 years ago. It's designed for everyone, web developers, backend developers, front-end developers...
 
@@ -95,13 +95,13 @@ Another example is when you're working as a team on a project, without reproduci
 
 Because of this concept, you'll need to **forbid any type of plugins/themes installation or updating from the WordPress backend**. By default Bedrock will take care of this when you are in the `production` environment. Since WordPress is also a composer dependency, updating it is as simple as `composer update roots/wordpress`.
 
-But how to guarantee reproducible builds ? Well the answer is just below: use **Composer**.
+But how to guarantee reproducible builds? Well the answer is just below: use **Composer**.
 
 # Use Composer
 
 Bedrock boilerplate allows you to manage dependencies of your project using [Composer](https://getcomposer.org/) like **any** modern and decent PHP project should do (WordPress, I'm looking at you right now).
 
-Do you want to install `WooCommerce` ? Go inside your terminal and type:
+Do you want to install `WooCommerce`? Go inside your terminal and type:
 
 `composer require woocommerce/woocommerce`
 
@@ -109,7 +109,7 @@ It'll fetch the latest version and freeze the version you got on your `composer.
 
 A good article can be found on [how to use composer with WordPress](https://roots.io/using-composer-with-wordpress/) on roots.io website.
 
-All the plugins are also installable via composer; How ? **3 scenarios are possible**:
+All the plugins are also installable via composer; How? **3 scenarios are possible**:
 
 ### The plugin provides a `composer.json`
 
@@ -134,12 +134,12 @@ You'll have multiple options from there:
 
    - Create a new private Github repository (it's free), copy/paste the code there and add a [composer.json like in this example](https://gist.github.com/tristanbes/fbacfb2ce6990e7fdc7411a73715fd92), tag a new release using [Github releases](https://help.github.com/en/articles/creating-releases), and then require this package using a custom repository. All the procedure is [listed in detail on roots.io website](https://roots.io/guides/private-or-commercial-wordpress-plugins-as-composer-dependencies/). I'd advise, if you have the budget for, to use [Private Packagist](https://packagist.com/) to host your private packages.
 
-# Use a better templating system than PHP: "I'm yelling timber" !
+# Use a better templating system than PHP: "I'm yelling timber"!
 
-What about the templating system ?
+What about the templating system?
 PHP is not a good templating system. Hard to read, hard to write, and let's not fool ourselves, we're no longer in the early 2010, we have tools created especially for each use case. The best PHP templating system is [Twig](https://twig.symfony.com/). It is widely used in the Symfony ecosystem (but not only).
 
-So how can we use Twig inside a WordPress project ? Luckily for us, there's a project called  [Timber](https://github.com/timber/timber).
+So how can we use Twig inside a WordPress project? Luckily for us, there's a project called  [Timber](https://github.com/timber/timber).
 
 > Plugin to write WordPress themes with object-oriented code and the Twig Template Engine
 
@@ -159,18 +159,18 @@ if (class_exists('Timber') && WP_ENV === 'production') {
     Timber::$cache = true;
 }
 
-// Replace WP_ENV === 'production' by !WP_DEBUG if you are NOT in a Bedrock structure
+// Replace WP_ENV === 'production' by!WP_DEBUG if you are NOT in a Bedrock structure
 ```
 
 {% include image.html width="688" url="/img/timber-cache.png" description="Difference of rendering time before/after enabling Twig cache system. <a href='https://blackfire.io/profiles/compare/5b79d23e-3bb8-4089-8e56-82aaae679b6b/graph'>More details on this Blackfire trace</a>." %}
 
-Note that it caches the the compiled php template and not the data. Any edits made to the `.twig` templates on the production won't be reflected unless you clear the cache. (Who edits files on production though ? 😱 Certainly not you !)
+Note that it caches the the compiled php template and not the data. Any edits made to the `.twig` templates on the production won't be reflected unless you clear the cache. (Who edits files on production though? 😱 Certainly not you!)
 
 # Prefer storing your assets on the cloud
 
 Storing your assets on the local filesystem under `uploads/` directory is nice, but at some point, you'll have to synchronize this folder through all your environments, otherwise your local version will a complete different set of medias than the production and vice-versa.
 
-Remember when we talked about reproducable builds ? Wouldn't it be nice if we can store our media remotely so we don't use local filesystem ? Spoiler alert, yes, it's nice.
+Remember when we talked about reproducable builds? Wouldn't it be nice if we can store our media remotely so we don't use local filesystem? Spoiler alert, yes, it's nice.
 
 The one other major advantage of this technique is **allow your website to scale** to receive a huge spike of traffic load. All you have to do is to add more servers (horizontal scaling), since you have a reproducible build, the project and plugins will be the same on server number 1, 2, ... 23, 24.
 
@@ -201,9 +201,9 @@ $context['options'] = get_fields('options'); // retrieve all options fields from
 Timber::render('index.twig', $context); // render the index.twig page with the options passed to the twig context so you can use them inside your view.
 ```
 
-When you do that, it will trigger one database call per field you're getting. So let's say you have 35 fields under the option category, it'll trigger 35 database call just to get those fields, but, do do you really need those 35 fields on all pages ?
+When you do that, it will trigger one database call per field you're getting. So let's say you have 35 fields under the option category, it'll trigger 35 database call just to get those fields, but, do do you really need those 35 fields on all pages?
 
-What to do instead ?
+What to do instead?
 
 ```php
 $context['options']['twitter_link'] = get_fields('twitter_link', 'options');
@@ -224,23 +224,23 @@ Timber::render('index.twig', $context);
 
 In real world project, doing this kind of optimization leads to important performance improvements.
 
-{% include image.html width="688" url="/img/blackfire-acf.png" description="Difference of rendering time before/after retrieving only the strict necessary ACF fields. -850 requests to the database and -37% of rendering time ! <a href='https://blackfire.io/profiles/compare/3984573f-3fc2-48fc-9683-2668c3a4a7e5/graph'>More details on this Blackfire trace</a>." %}
+{% include image.html width="688" url="/img/blackfire-acf.png" description="Difference of rendering time before/after retrieving only the strict necessary ACF fields. -850 requests to the database and -37% of rendering time! <a href='https://blackfire.io/profiles/compare/3984573f-3fc2-48fc-9683-2668c3a4a7e5/graph'>More details on this Blackfire trace</a>." %}
 
 Explicit is better than implicit. It helps your colleague to provide a more accurate code review of your work. That work is harder when you don't know what your template has access to.
 
-And what about videos and images fields ? If you are using them, you should know that if you retrieve them "as is" using the `get_field('my_youtube_video')`, the code will try to fetch the metadata (size, orientation, length...) of the videos and images.
+And what about videos and images fields? If you are using them, you should know that if you retrieve them "as is" using the `get_field('my_youtube_video')`, the code will try to fetch the metadata (size, orientation, length...) of the videos and images.
 
-What's the matter here ? Well, since you're hosting your medias on the cloud (or a remote service, eg: YouTube in this example), **the video and images has to be downloaded on the server side** to allow retrieve this information you won't need in 98% of the cases. In this situation doing external HTTP calls from your server to the internet adds precious extra time and kills your site's performance.
+What's the matter here? Well, since you're hosting your medias on the cloud (or a remote service, eg: YouTube in this example), **the video and images has to be downloaded on the server side** to allow retrieve this information you won't need in 98% of the cases. In this situation doing external HTTP calls from your server to the internet adds precious extra time and kills your site's performance.
 
 I've seen project spending almost 1 second doing external calls, preventing the server to send HTML to the browser by fetching just 10 images information from the cloud.
 
 In those cases you need to use `get_field('my_youtube_video', null, false)`. The last option (`false`), tells to retrieve the field (in this case, the YouTube url of the video, without any formatting or additionnal treatment). One other case is to set the configuration of the field as a "URL" field, (and not oEmbed), and for images, "Image URL"
 
-{% include image.html width="688" url="/img/external_http_calls_blackfire.png" description="Difference of rendering time before/after configuring fields as URL fields instead of oEmbed. All the external HTTP calls the server made to fetch the metadata of images or videos were eliminated (-7) and it saved 35% of time (-846ms) ! <a href='https://blackfire.io/profiles/compare/29fc43d1-fce1-447e-9d4e-cef4b2f53750/graph'>More details on this Blackfire trace</a>." %}
+{% include image.html width="688" url="/img/external_http_calls_blackfire.png" description="Difference of rendering time before/after configuring fields as URL fields instead of oEmbed. All the external HTTP calls the server made to fetch the metadata of images or videos were eliminated (-7) and it saved 35% of time (-846ms)! <a href='https://blackfire.io/profiles/compare/29fc43d1-fce1-447e-9d4e-cef4b2f53750/graph'>More details on this Blackfire trace</a>." %}
 
 # Lint your code
 
-Is your theme shipping CSS, Javascript and some PHP ? You should lint them, make sure you write code compliant with industry standard. Use:
+Is your theme shipping CSS, Javascript and some PHP? You should lint them, make sure you write code compliant with industry standard. Use:
 
 * [ESlint](https://eslint.org/) - Javascript
 * [stylelint](https://stylelint.io/) - CSS
@@ -353,9 +353,9 @@ The main reason behind this reasoning is:
 
 🔒 Support [maintained version of PHP](https://www.php.net/supported-versions.php)
 
-💅🏽 Lint your PHP code using PHP-CS-Fixer FFS ! Choose between PSR2 or Symfony preset, but use one and fix your code.
+💅🏽 Lint your PHP code using PHP-CS-Fixer FFS! Choose between PSR2 or Symfony preset, but use one and fix your code.
 
 # Conclusion
 
-If you want to look at a project structure implementing the majority of the point made in this article, you can [take a look at my WordPress boilerplate example based on Bedrock, Timber](https://github.com/tristanbes/wordpress-boilerplate).
+If you want to look at a project structure implementing the majority of the point made in this article, you can [take a look at my WordPress boilerplate example based on Bedrock and Timber](https://github.com/tristanbes/wordpress-boilerplate).
 This repository should not be used "as is", but it'll help you understand how to structure your project files.
