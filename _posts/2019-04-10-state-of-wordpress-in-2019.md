@@ -354,3 +354,8 @@ The main reason behind this reasoning is:
 🔒 Support [maintained version of PHP](https://www.php.net/supported-versions.php)
 
 💅🏽 Lint your PHP code using PHP-CS-Fixer FFS ! Choose between PSR2 or Symfony preset, but use one and fix your code.
+
+# Conclusion
+
+If you want to look at a project structure implementing the majority of the point made in this article, you can [take a look at my WordPress boilerplate example based on Bedrock, Timber](https://github.com/tristanbes/wordpress-boilerplate).
+This repository should not be used "as is", but it'll help you understand how to structure your project files.
