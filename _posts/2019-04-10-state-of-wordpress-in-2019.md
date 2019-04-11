@@ -42,7 +42,7 @@ The benefit of having environment variables is for you to have multiple environm
 
 In 2019, every major frameworks has a concept of environnement variables in the PHP world: *Symfony*, *Laravel*, *Yii*. It's a common practice that exists since decades on Windows and Unix world.
 
-Environment variables can be stored as a file, for `development` and injected in your web server for `staging` and `production` environments. Don't freak out, a lot of decent hosting companies provide an UI to manipulate environment variables. For example, look at what [heroku do for environment variables](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard).
+Environment variables can be stored as a file, for `development` and injected in your web server for `staging` and `production` environments. Don't freak out, a lot of decent hosting companies provide an UI to manipulate environment variables. For example, look at what [Heroku does for environment variables](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard).
 
 Environment variables look a lot like this:
 
@@ -113,7 +113,7 @@ All the plugins are also installable via composer; How? **3 scenarios are possib
 
 ### The plugin provides a `composer.json`
 
-The developer or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json][https://github.com/woocommerce/woocommerce/blob/master/composer.json] file that allow installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
+The developer or company behind the plugin is not locked in a WordPress thing of the past syndrome and has developed modern applications. This would mean that their plugin also ships a [composer.json](https://github.com/woocommerce/woocommerce/blob/master/composer.json) file that allows installation through composer. With this scenario you can search for your plugin inside [packagist.org](https://packagist.org/?query=woocommerce) which is a repository containing all the public PHP packages in the universe ✨.
 
 ### The plugin does not provide a `composer.json`
 
@@ -151,10 +151,10 @@ Once you start writing your themes using Twig, **you won't go back to plain PHP*
 
 By default, Timber does not activate that cache.
 
-Here's how to activate it safely you'll save up to 40% of generation time by doing so Inside your theme's `functions.php`
+Here's how to activate it safely. You'll save up to 40% of generation time by doing so. Inside your theme's `functions.php`:
 
 ```php
-// Activate Twig caching.
+// Activate Twig caching
 if (class_exists('Timber') && WP_ENV === 'production') {
     Timber::$cache = true;
 }
@@ -194,7 +194,7 @@ My wish for WordPress is for them to use an filesystem abstraction such as [Flys
 
 If you're a user of Advanced Custom Field, known as ACF, then you must know some of the performance bottleneck you might have if you're abusing the `get_field` function.
 
-You must only expose only the variables you need per page. I've seen a lot of example, even in the documentation where you are invited to do
+You must only expose the variables you need per page. I've seen a lot of example, even in the documentation, where you are invited to do:
 
 ```php
 $context['options'] = get_fields('options'); // retrieve all options fields from the database
@@ -202,7 +202,7 @@ $context['options'] = get_fields('options'); // retrieve all options fields from
 Timber::render('index.twig', $context); // render the index.twig page with the options passed to the twig context so you can use them inside your view.
 ```
 
-When you do that, it will trigger one database call per field you're getting. So let's say you have 35 fields under the option category, it'll trigger 35 database call just to get those fields, but, do do you really need those 35 fields on all pages?
+When you do that, it will trigger one database call per field you're getting. So let's say you have 35 fields under the option category, it'll trigger 35 database call just to get those fields, but, do you really need those 35 fields on all pages?
 
 What to do instead?
 
