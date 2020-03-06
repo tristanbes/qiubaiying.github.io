@@ -33,7 +33,7 @@ To achieve our goal we used the following products/framework/libraries:
 - [Amazon Lambda](https://aws.amazon.com/lambda/?nc2=type_a)
 - [Scaleway S3](https://www.scaleway.com/en/object-storage/)
 
-My team works with `PHP7`, `Symfony` and `Vue.js`.
+My team work with `PHP7`, `Symfony` and `Vue.js`.
 
 You can contribute to this article for any typos or error you find by [submitting a pull request](https://github.com/tristanbes/devops-life/tree/gh-pages/_posts/2020-03-06-how-serverless-saved-us-for-$2-with-bref-sh.md)
 
