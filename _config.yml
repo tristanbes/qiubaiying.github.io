@@ -1,11 +1,11 @@
 # Site config
 
 title: DevOps life
-SEOTitle: "Tristan Bessoussa le blog technique | CTO"
+SEOTitle: "Tristan Bessoussa | CTO | Technical blog"
 header-img: img/post-bg-desk.jpg
 email: tristan.bessoussa [at] gmail [.] com
-description: "Des articles techniques sur du développement de l'automatisation et de l'industrialisation des développements"
-keyword: "Symfony, PHP, ansible, devops, WordPress, wp, automation, industrialisation, PaaS"
+description: "Articles on automation, industrialization of developement. A little bit of Symfony, Serverless and Infrastructure"
+keyword: "Symfony, PHP, ansible, devops, WordPress, WP, automation, industrialisation, PaaS, serverless"
 url: "https://devops-life.com"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/tristanbes/devops-life.git" # you code repository
