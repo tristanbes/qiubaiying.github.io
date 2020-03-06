@@ -59,6 +59,8 @@ The main problem: **it doesn't scale**.
 
 ~20 seconds (pdf generation) x 2,000 PDF = _11 hours of PDF generation_
 
+Average of generation is 2 seconds, but on heavy PDF that contains multiple pages of multiple reports it can require up to 30 seconds.
+
 During those 11 hours you'd need to ensure that the generation can survive that long (through app deployements, server restart etc...) and a way to monitor that the process is running, for example using [Supervisor](http://supervisord.org/).
 
 It would also require you to code the whole process using "[defensive programming](https://en.wikipedia.org/wiki/Defensive_programming)" in order to ensure the continuing function of your code under unforeseen circcumstances.
@@ -101,6 +103,8 @@ Then the code uses [Browsershot](https://github.com/spatie/browsershot), which t
 Once the PDF is generated, it's stored in a **S3 bucket**.
 
 We used [Bref.sh](https://bref.sh/) around Symfony; It's **awesome** because it provides lambda integration for your favorite PHP framework and also different [PHP runtime](https://bref.sh/docs/runtimes/#bref-runtimes) that will run on the lambda.
+
+**All the 2,000 PDFs are generated within 2 minutes**
 
 #### Step 5: email the PDF to the client
 
