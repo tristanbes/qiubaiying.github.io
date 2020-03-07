@@ -33,37 +33,37 @@ To achieve our goal we used the following products/framework/libraries:
 - [Amazon Lambda](https://aws.amazon.com/lambda/?nc2=type_a)
 - [Scaleway S3](https://www.scaleway.com/en/object-storage/)
 
-My team work with `PHP7`, `Symfony` and `Vue.js`.
+My team works with `PHP7`, `Symfony` and `Vue.js`.
 
-You can contribute to this article for any typos or error you find by [submitting a pull request](https://github.com/tristanbes/devops-life/tree/gh-pages/_posts/2020-03-06-how-serverless-saved-us-for-$2-with-bref-sh.md)
+You can contribute to this article for any typos or errors you may find by [submitting a pull request](https://github.com/tristanbes/devops-life/tree/gh-pages/_posts/2020-03-06-how-serverless-saved-us-for-$2-with-bref-sh.md)
 
 ## The need: Generate PDF analytics reports
 
 Here's the user stories:
 
 - "As a customer of the CMS,
-I should recieve each month a PDF report containing serveral analytics for my website"
+I should receive each month a PDF report containing serveral analytics for my website"
 - "As a reseller of this group of customer of the CMS,
-I should recieve each month a PDF report of each customer's reports (only a part of it)"
+I should receive each month a PDF report of each customer's reports (containing a part of each)"
 
-In 2 sentences, for our few customers with this feature, we'll have to generate 2,000+ PDFs.
-Here's what look like one of the PDF we have to generate:
+In two sentences, for our few customers with this feature, we'll have to generate 2,000+ PDFs.
+Here's what it looks like for one of the PDFs we have to generate:
 
 {% include image.html width="688" url="/img/serverless/pdf-lambda-result.jpg" description="PDF result" %}
 
 
 ### VPS / Dedicated server option
 
-You could setup a CRON on one of your servers and this cron will take care of launching a command to generate the PDF.
+You could setup a cron job on one of your servers and it will take care of launching a command to generate the PDF.
 The main problem: **it doesn't scale**.
 
 ~20 seconds (pdf generation) x 2,000 PDF = _11 hours of PDF generation_
 
-Average of generation is 2 seconds, but on heavy PDF that contains multiple pages of multiple reports it can require up to 30 seconds.
+Average of generation is 2 seconds, but on a heavy PDF that contains multiple pages of multiple reports it can require up to 30 seconds.
 
 During those 11 hours you'd need to ensure that the generation can survive that long (through app deployements, server restart etc...) and a way to monitor that the process is running, for example using [Supervisor](http://supervisord.org/).
 
-It would also require you to code the whole process using "[defensive programming](https://en.wikipedia.org/wiki/Defensive_programming)" in order to ensure the continuing function of your code under unforeseen circcumstances.
+It would also require you to code the whole process using "[defensive programming](https://en.wikipedia.org/wiki/Defensive_programming)" in order to ensure the continuing function of your code under unforeseen circumstances.
 
 Since we run a PHP app, it's not multi-threaded, meaning, we can't easily take advantage from all the CPU cores of our dedicated server. One of the options, if we want to achieve concurrency, is to rent more servers which we have to deploy, provision and manage.
 
@@ -94,7 +94,7 @@ Note: our message structure (Plain Old PHP Object) is stored in another git repo
 
 #### Step 4: generate the PDFs
 
-Up to **3,000 lambda instances are started**, that's some serious scalability there (in our case we limited it at 50 concurrent lambdas). Each lambda recieves one message containing the data to generate 1 PDF.
+Up to **3,000 lambda instances are started**, that's some serious scalability there (in our case we limited it at 50 concurrent lambdas). Each lambda receives one message containing the data to generate 1 PDF.
 
 Then the lambda runs our `app #2` (PHP, Symfony) responsible of rendering a view inside a web page using a simple `.twig` templates with some javascript to render charts.
 
@@ -124,10 +124,10 @@ The architecture image is only a part of what really happens. Because once the P
 
 One of the main advantage of using serverless architecture is that you get billed only for the time it was required to run the code.
 
-You also don't have to take care of where or how it runs. You just ship code and it runs in the cloud. The cloud provider is responsible of managing the allocation of the machines resources.
+You also don't have to take care of where or how it runs. You just ship code and it runs in the cloud. The cloud provider is responsible of managing the allocation of the machine resources.
 
-In our example, using the free tier of Amazon Lambda and Amazon SQS, generating 2,000 PDF is costing us **~$1.63** ($1.62 for SQS, $0.01 for Lambda). You can use this [serverless costs calculator](https://cost-calculator.bref.sh/) to get better insights.
+In our example, using the free tier of Amazon Lambda and Amazon SQS, generating 2,000 PDFs is costing us **~$1.63** ($1.62 for SQS, $0.01 for Lambda). You can use this [serverless costs calculator](https://cost-calculator.bref.sh/) to get better insights.
 
-If you think you have some part of your code that could benefit from being moved to a serverless architecture, I would advise that you start with a very simple POC so you can get familiar with these new concepts. We did that with small portion of our code before even attempting to solve the PDF problem to better understand the full ecosystem (queuing, lambda, notification...). We now have 5 lambda doing specific job (outside the PDF needs).
+If you think you have some part of your code that could benefit from being moved to a serverless architecture, I would advise that you start with a very simple POC so you can get familiar with these new concepts. We did that with small portion of our code before even attempting to solve the PDF problem to better understand the full ecosystem (queuing, lambda, notification...). We now have 5 lambdas doing specific jobs (outside the PDF needs).
 
 **You can read more on this** from a more technical point of view: [Generate PDFs on Amazon AWS with PHP and Puppeteer](https://hugo.alliau.me/2020/01/02/generate-pdfs-on-amazon-aws-with-php-and-puppeteer/), written by Hugo Alliaume, who helped a lot on this subject. It contains a lot of details, such as how we shipped chrome into the lambda.
