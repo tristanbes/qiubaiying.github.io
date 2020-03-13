@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How Serverless Saved Us For $2.
-subtitle: Understand the benefits of going serveless (FaaS)
+subtitle: Understand the benefits of going serverless (FaaS)
 categories:
 - blog
 catalog: true
@@ -108,14 +108,14 @@ We used [Bref.sh](https://bref.sh/) around Symfony; It's **awesome** because it 
 
 #### Step 5: email the PDF to the client
 
-The architecture image is only a part of what really happens. Because once the PDF has been generated in the bucket, we generate a new Message, send it to another SQS queue, and then, this particular queue is using `app #2` again (but another part of the code) to send an email to the client with the PDF attached and notify the CMS application so client's can download their PDF through the backoffice too.
+The architecture image is only a part of what really happens. Because once the PDF has been generated in the bucket, we generate a new Message, send it to another SQS queue, and then, this particular queue is using `app #2` again (but another part of the code) to send an email to the client with the PDF attached and notify the CMS application so clients can download their PDF through the backoffice too.
 
-## Comparaison
+## Comparison
 
 |             | VPS or Dedicated server | Serverless    |
 |-------------|-------------------------|---------------|
 | Complexity  | Low                     | Medium        |
-| Cost        | Expansive               | Cheap         |
+| Cost        | Expensive               | Cheap         |
 | Scalability | Complex                 | Very scalable |
 
 
@@ -128,6 +128,6 @@ You also don't have to take care of where or how it runs. You just ship code and
 
 In our example, using the free tier of Amazon Lambda and Amazon SQS, generating 2,000 PDFs is costing us **~$1.63** ($1.62 for SQS, $0.01 for Lambda). You can use this [serverless costs calculator](https://cost-calculator.bref.sh/) to get better insights.
 
-If you think you have some part of your code that could benefit from being moved to a serverless architecture, I would advise that you start with a very simple POC so you can get familiar with these new concepts. We did that with small portion of our code before even attempting to solve the PDF problem to better understand the full ecosystem (queuing, lambda, notification...). We now have 5 lambdas doing specific jobs (outside the PDF needs).
+If you think you have some part of your code that could benefit from being moved to a serverless architecture, I would advise that you start with a very simple POC so you can get familiar with these new concepts. We did that with a small portion of our code before even attempting to solve the PDF problem to better understand the full ecosystem (queuing, lambda, notification...). We now have 5 lambdas doing specific jobs (outside the PDF needs).
 
 **You can read more on this** from a more technical point of view: [Generate PDFs on Amazon AWS with PHP and Puppeteer](https://hugo.alliau.me/2020/01/02/generate-pdfs-on-amazon-aws-with-php-and-puppeteer/), written by Hugo Alliaume, who helped a lot on this subject. It contains a lot of details, such as how we shipped chrome into the lambda.
