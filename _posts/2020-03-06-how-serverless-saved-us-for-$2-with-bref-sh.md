@@ -28,7 +28,7 @@ To achieve our goal we used the following products/framework/libraries:
 - [Bref.sh](https://bref.sh/)
 - [Serverless framework](https://serverless.com/)
 - [Browsershot](https://github.com/spatie/browsershot)
-- [Pupetter](https://pptr.dev/)
+- [Puppeteer](https://pptr.dev/)
 - [Amazon SQS](https://aws.amazon.com/sqs/)
 - [Amazon Lambda](https://aws.amazon.com/lambda/?nc2=type_a)
 - [Scaleway S3](https://www.scaleway.com/en/object-storage/)
