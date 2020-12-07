@@ -47,7 +47,6 @@ Avant de consigner les résultats obtenus, j'ai passé quelques temps à trouver
 
 Une valeur trop haute, et ce sont les performances qui sont plombées à cause du manque de RAM (qui swap). Une valeur trop faible, et le scaler est alors bridé, et vos performances aussi.
 
-
 ⚠️ Note sur les pourcentages de réponse du serveur : notez que sur les tests de type XX clients par seconde sur Y minutes, loader.io peut envoyer un peu moins de clients. Quand le résultat est à 95% on peut estimer que c'est justement cette différence de clients qui s'exprime. Par contre, quand on obtient 20%, pas de doute, là, c'est bien le serveur qui n'a pas pu gérer toutes les requêtes, et n'a répondu qu'à 2 requête sur 10. ⚠️
 
 ⏲ Loader.io ne parse pas l'HTML, ni ne télécharge le JS, CSS ou les images. Le temps de réponse correspond donc uniquement à la génération de la page envoyée par le serveur. ⏲

@@ -62,18 +62,19 @@ Quelques fois, nous avons obtenu des performances bien meilleures lors de tests 
 - Pas de support de Github Server (pour l'app de déploiement)
 - Pas (encore) de vision "d'ensemble" pour les portefeuilles avec beaucoup de projets
 - Pas de reverse proxy (ex : Varnish) facilement configurable depuis un `.vcl ` déposé à la racine de l'application afin d'augmenter les performances applicatives en tirant parti du cache HTTP
+- **EDIT 12/20** Au moins 2 incidents majeurs de la plateforme sur 2020 suite à des attaques [DDOS](https://scalingo.com/blog/mitigating-massive-ddos)
 
 #### 👍 Avantages
 
 - Tarifs compétitifs
 - Tout est facturé à la "minute", même la base de données
 - Auto-scaling horizontal
-- Support réactif
+- Support réactif. **EDIT 3/12/20** Toujours très réactif, et souvent un développeur est à l'autre bout qui comprends tout de suite la problématique et apporte une solution rapidement. C'est très appréciable.
 - Interface agréable à utiliser et réactive (UX/DX)
 - Gestion facilitée du `pm.max_children` depuis l'UI (variable `MAX_CONCURRENCY`)
 - Gestion d'environnements différents pour une même application (prod/préprod...), mais pas aussi facile que ce que peut proposer Platform.sh par exemple
 - Gestion simple et assez complète des règles de monitoring de vos scalers sur différents cannaux (slack, mail...)
-
+- **EDIT 3/12/20** Environnement plus flexible que certains PaaS sur certaines extensions: compatible avec Blackfire, Datadog...
 
 
 #### ✅ **VERDICT : RETENU** ✅
