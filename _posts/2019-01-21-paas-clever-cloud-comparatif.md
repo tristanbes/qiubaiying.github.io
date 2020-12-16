@@ -26,6 +26,9 @@ Dans la série :
 
 ## Clever Cloud
 
+
+**MAJ décembre 2020**: Clever Cloud à changé sa politique de prix sur les bases de données.
+
 [Accéder au résumé si vous êtes pressés](#résumé-clever-cloud-tldr)
 
 
@@ -45,31 +48,27 @@ Cela compromet la promesse de pouvoir faire scaler l'application : en cas d'un p
 |                | Clever Cloud    | Scalingo                             |
 | -------------- | --------------- | ------------------------------------ |
 | Connexion max  | 75              | 62                                   |
-| Taille max BDD | 10Gb            | 5Gb                                  |
+| Taille max BDD | ~~10~~ 5Gb            | 5Gb                                  |
 | Mémoire        | 1Gb             | 1Gb                                  |
 | Type           | Dédié           | Dédié (Software + RAM)               |
 | CPU            | 1 vCPU          | Partagé                              |
-| Prix           | 45€/mois <br /> | 14,4€/mois<br />(découpé par minute) |
+| Prix           | ~~45~~ 22€/mois <br /> | 14,4€/mois<br />(découpé par minute) |
 
-<br />
 
-Autre point d'alerte, chez [Clever Cloud](https://www.clever-cloud.com/), ils feront beaucoup d'efforts pour vous orienter vers du PostgreSQL et ce de manière très assumée, puisqu'à ressource strictement équivalente, les containers de base de données sont **plus chers** pour du MySQL.
+Autre point d'alerte, chez [Clever Cloud](https://www.clever-cloud.com/), ils vous incitent à vous orienter vers du PostgreSQL et ce de manière assumée, puisqu'à ressource strictement équivalente, les containers de base de données sont **plus chers** pour du MySQL.
 
-On parle quand même d'une **différence de 180€ par an**.
+On parle d'une **différence de ~~180~~ +54€ par an**.
 
 Ils justifient cette différence par le fait qu'une instance MySQL coûte plus cher à gérer que du PostgreSQL et l'équipe technique chez eux préfère maintenir du PostgreSQL.
 
-Autant pour une application Symfony, ça ne me fait ni chaud, ni froid (ou presque...) de mettre un PostgreSQL, autant pour du Wordpress, nous n'avons pas le choix sur la base de données compatible avec le CMS. Donc au final, c'est l'utilisateur qui paye le coût supplémentaire. 💸.
+Autant pour une application Symfony, ça ne me fait ni chaud, ni froid (ou presque...) de mettre un PostgreSQL, autant pour du Wordpress, nous n'avons pas le choix sur la base de données compatible avec le CMS. Donc au final, c'est l'utilisateur qui paye le coût supplémentaire.
 
-A priori, ils seraient en train de retravailler le pricing des scaler de base de données.
-
+**EDIT 12/20** ~~A priori, ils seraient en train de retravailler le pricing des scaler de base de données.~~ C'est maintenant chose faite, d'ou la MAJ de cet article.
 
 
 #### Paramétrage de l'application sur Clever Cloud
 
-
-
-Comme toute application hebergée sur un PaaS, on passe par la case "variables d'environnement". Chez Clever Cloud, c'est peu pratique. Lors de mes tests, il y a quelques semaines, il n'y avait pas de gestion de l'édition/ajout des variables en masse. Quand on doit saisir 20 variables : quelle perte de temps !  Heureusement, ça a été corrigé récemment par l'ajout d'un bulk edit/add.
+Comme toute application hebergée sur un PaaS, on passe par la case "variables d'environnement". Chez Clever Cloud, c'est peu pratique. Lors de mes tests, il y a quelques semaines, il n'y avait pas de gestion de l'édition/ajout des variables en masse. Quand on doit saisir 20 variables : quelle perte de temps ! Heureusement, ça a été corrigé récemment par l'ajout d'un bulk edit/add.
 
 Il n'est pas possible de faire référence à une autre variable (ex: `DATABASE_URL=$MYSQL_ADDON_URI`), et ça, c'est dommage.
 
@@ -141,14 +140,15 @@ Voilà leur réponse:
 
 ####  👎 Inconvénients
 
-- Ratio prix/performances sur du Wordpress catastrophique
-- Gestion du pricing des add-ons de base de données : prix important, et engagement au mois
+- Ratio prix/performances sur du WordPress ~~catastrophique~~ correcte
+- Gestion du pricing des add-ons de base de données : ~~prix important, et~~ engagement au mois
 - Pas de scaling sur la base de données
 - Pas de références à d'autres variables d'environnement
 - Pas de support de Github Server pour déploiement auto
 - Interface parfois peu intuitive
 - Gestion des statistiques (en BETA)
 - Pas de gestion facilitée du `pm.max_children` depuis l'UI (ex : par une variable d'environnement)
+- **EDIT 12/20** Très peu d'ouverture sur l'écosystème APM / Monitoring (pas de Datadog, blackfire.io, tideways.io)
 
 
 
@@ -162,6 +162,8 @@ Voilà leur réponse:
 - Gestion des logs claire
 - Une alternative à Amazon S3 "maison", pour monter un espace de stockage non volatile
 - Une gestion optionelle d'un reverse proxy qui a l'air simplifiée (Varnish)
+- **EDIT 12/20** Très stable (Rex sur 1+an d'hebergement d'un projet chez eux)
+- **EDIT 12/20** Gestion multi-region (avec de l'OVH derrière)
 
 <br />
 
@@ -177,4 +179,3 @@ Rappel : je n'ai benchmarké qu'une application Wordpress chez eux, en aucun cas
 
 <br />
 
-<br /><br />
