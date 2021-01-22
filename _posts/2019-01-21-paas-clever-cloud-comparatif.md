@@ -42,11 +42,7 @@ Sur le papier, l'offre est sexy   (auto) scaling vertical, horizontal.
 
 #### La base de données
 
-Au moment de prendre le service, première mauvaise surprise : la base de données est payante au mois complet, et il n'est pas possible de la faire scaler ni de manière manuelle, ni de manière automatique (il est néanmoins possible de commander une nouvelle BDD, d'exporter les data de l'ancienne, et de migrer vers la nouvelle... mais bon... 🥶)
-
-Je m'attarde sur la base de données, puisque chez Clever Cloud (comme d'autres PaaS), la base de données est sujette à une limitation de connexions simultanées. Cette limite est (trop) basse pour le prix.
-
-Cela compromet la promesse de pouvoir faire scaler l'application : en cas d'un pic de charge sur un site ecommerce, la base de données sera l'élément bloquant de l'infrastructure. Par exemple, si l'on part du postulat que 1 connexion = 2 visiteurs simultanés (👉 attention, calcul avec méthode du doigt mouillé) à 150 visiteurs par seconde et ce, peu importe si l'on place 10 scaler/container frontaux, ou 500)
+Au moment de prendre le service, première mauvaise surprise : la base de données est payante au mois complet, et il n'est pas encore possible de la faire scaler de manière automatique ou manuelle, mais cela devrait (bientôt) changer, 
 
 |                | Clever Cloud    | Scalingo                             |
 | -------------- | --------------- | ------------------------------------ |
