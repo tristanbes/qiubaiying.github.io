@@ -47,7 +47,7 @@ Avant de consigner les résultats obtenus, j'ai passé quelques temps à trouver
 
 Une valeur trop haute, et ce sont les performances qui sont plombées à cause du manque de RAM (qui swap). Une valeur trop faible, et le scaler est alors bridé, et vos performances aussi.
 
-⚠️ Notez que le nombre de visiteur unique est variable, même si l'on règle le test sur 5 visiteurs uniques par secondes pendant 2 minutes. Je n'ai jamais obtenu 5*60*2 = 600 requêtes. Pensez donc à regarder le nombre de requête que le serveur à eu à traiter. ⚠️
+⚠️ Notez que le nombre de visiteur unique est variable, même si l'on règle le test sur 5 visiteurs uniques par secondes pendant 2 minutes. Je n'ai jamais obtenu 5x60x2 = 600 requêtes. Pensez donc à regarder le nombre de requête que le serveur à eu à traiter. ⚠️
 
 
 ### Résultat des tests (extraits)
@@ -65,6 +65,8 @@ Une valeur trop haute, et ce sont les performances qui sont plombées à cause d
 | Hidora | 15,78€    | 2gb   |  256mb  | 2 042        | 239                   |
 | Hidora | 28,70€    | 2gb   |  512mb  | 1110        | 237                   |
 
+A défaut des autres hébergeurs, Hidora donne accès à tous les fichiers de configuration en SSH.
+Il est donc possible d'appliquer diverses optimisations pour réduire le temps de réponse. Néanmoins, ce n'est pas ce que je souhaite d'un PaaS
 
 #### Configuration des tests
 
