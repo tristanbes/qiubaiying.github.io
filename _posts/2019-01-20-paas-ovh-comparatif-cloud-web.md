@@ -12,6 +12,8 @@ tags:
     - PaaS
     - Performances
     - OVH
+    - Hosting
+    - Cloud
 ---
 
 Ce billet s'inscrit dans une série d'articles visant à faire un retour d'expérience sur les différents PaaS français dans une problématique d'hébergement d'un parc de 120+ WordPress.

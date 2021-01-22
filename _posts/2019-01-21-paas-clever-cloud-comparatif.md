@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Les PaaS Français sont sur un bateau &#58; Clever Cloud prend l'eau
+title: Les PaaS Français sont sur un bateau &#58; Clever Cloud redresse la barre
 subtitle:  Comparatif d'offres PaaS
 categories:
 - blog
@@ -12,6 +12,8 @@ tags:
     - PaaS
     - Performances
     - Clever Cloud
+    - Hosting
+    - Cloud
 ---
 
 
@@ -27,7 +29,8 @@ Dans la série :
 ## Clever Cloud
 
 
-**MAJ décembre 2020**: Clever Cloud à changé sa politique de prix sur les bases de données.
+**Mise à jour Janvier 2021**: Clever Cloud à changé courant 2020 sa politique de prix sur les bases de données ce qui lui permet de réduire considérablement les coûts, dont je parlais dans cet article. <br>
+De plus, après un nouveau test de performance, en utilisant le même projet qu'en décembre 2019, les performances par défaut sont bien meilleures qu'avant (voir mise à jour de l'article [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo]({% post_url 2019-01-24-clevercloud-vs-scalingo %}).
 
 [Accéder au résumé si vous êtes pressés](#résumé-clever-cloud-tldr)
 
@@ -61,7 +64,7 @@ On parle d'une **différence de ~~180~~ +54€ par an**.
 
 Ils justifient cette différence par le fait qu'une instance MySQL coûte plus cher à gérer que du PostgreSQL et l'équipe technique chez eux préfère maintenir du PostgreSQL.
 
-Autant pour une application Symfony, ça ne me fait ni chaud, ni froid (ou presque...) de mettre un PostgreSQL, autant pour du Wordpress, nous n'avons pas le choix sur la base de données compatible avec le CMS. Donc au final, c'est l'utilisateur qui paye le coût supplémentaire.
+Autant pour une application Symfony, ça ne me fait ni chaud, ni froid (ou presque...) de mettre un PostgreSQL, autant pour du WordPress, nous n'avons pas le choix sur la base de données compatible avec le CMS. Donc au final, c'est l'utilisateur qui paye le coût supplémentaire.
 
 **EDIT 12/20** ~~A priori, ils seraient en train de retravailler le pricing des scaler de base de données.~~ C'est maintenant chose faite, d'ou la MAJ de cet article.
 
@@ -113,44 +116,34 @@ Notez que Wordpress n'a pas été detecté automatiquement, et il a fallu que je
 
 #### Performance chez Clever Cloud
 
-C'est là où tout s'écroule, si l'on compare Scalingo (article suivant) à [Clever Cloud](https://www.clever-cloud.com/), **il faut débourser 5 à 9 fois plus cher pour avoir des performances "équivalentes"** sur un Wordpress ⚠️
+**EDIT 01/21** Les nouvelles politiques tarifaires, ainsi que de multiples améliorations hardware/software (migration datacenter + meilleur reverse proxy en Rust) permettent à Clever Cloud de redresser la barre de manière drastique par rapport aux tests réalisés en décembre 2019.
 
-Exemple : J'envoie 10 clients par seconde pendant 2 minutes sur la page d'un produit (Wordpress avec un woocommerce).
+Ainsi, l'écart de prix se réduit. Mes testent réalisés en Janvier 2021 montrent qu'il ne faut plus avoir à débourser 5 à 9 fois plus d'argent pour obtenir des performances similaires à l'un de ses principaux concurrents, Scalingo. 
+On est plus sur un ratio de x2. Comprendre ici, pour 2 fois moins cher sur Scalingo, on a des performances similaires à Clever Cloud sur notre environnement WordPress.
 
-Pour **28,8€**/mois chez <u>Scalingo</u>, j'obtiens **930ms** de moyenne de temps de réponse.
+Exemple : J'envoie 5 visiteurs uniques par seconde pendant 2 minutes sur la page d'accueil.
 
-Pour **275,40€**/mois chez <u>Clever Cloud</u>, j'obtiens **977ms**. C'est la somme <u>minimum</u> à débourser pour avoir des performances semblables 💸.
+Pour **10,8€**/mois chez <u>Scalingo</u>, j'obtiens **492ms** de moyenne de temps de réponse.
 
-Alors avant d'écrire cet article, je me suis rapproché du support afin d'avoir leur avis, pour éviter d'écrire un article qui serait basé sur un problème de configuration ou d'optimisation de performances de mon côté.
+Pour **20,3€**/mois chez <u>Clever Cloud</u>, j'obtiens **588ms**. C'est la somme <u>minimum</u> à débourser pour avoir des performances semblables.
 
-Voilà leur réponse:
-
-> Wordpress est très consommateur de base de données et ne lésine pas sur les requêtes SQL. Nous utilisons des reverse proxy devant les bases de données qui permettent de les déplacer si nécessaire sans downtime pour l'utilisateur. **Le problème avec ce setup c'est que Wordpress met plus de temps à contacter la base de données** et donc à faire ses requêtes (on parle ici d'une milliseconde de latence ajoutée mais c'est suffisant pour donner le résultat que vous voyez).
->
->  C'est un problème connu de notre côté. Si je donne un accès direct de votre base de données à votre application, nous passons aux alentours de 600ms de chargement de la page (toujours avec 2M, certes, <http://bit.ly/2Cp9fTK> Je me suis permis de créer un compte à moi et de lancer les tests sur le domaine). Dans ces 600ms, environ 550ms sont des échanges avec la base de données.
->
-> **Nous travaillons à une solution** pour éviter ces reverse proxy pour les add-ons **mais ça ne risque pas d'arriver avant 2020 je pense**.
->
-> Vous avez aussi la possibilité de mettre un varnish devant votre application comme expliqué ici afin de cacher les pages statiques.
-
-* Part6. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
+* Part7. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo VS Hidora]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
 
 
 ### Résumé Clever Cloud (TLDR)
 
 ####  👎 Inconvénients
 
-- Ratio prix/performances sur du WordPress ~~catastrophique~~ correcte
+- ~~Ratio prix/performances sur du WordPress catastrophique~~
 - Gestion du pricing des add-ons de base de données : ~~prix important, et~~ engagement au mois
 - Pas de scaling sur la base de données
-- Pas de références à d'autres variables d'environnement
+- ~~Pas de références à d'autres variables d'environnement~~
 - Pas de support de Github Server pour déploiement auto
 - Interface parfois peu intuitive
-- Gestion des statistiques (en BETA)
+- Gestion des statistiques (en BETA depuis 2019 ?)
 - Pas de gestion facilitée du `pm.max_children` depuis l'UI (ex : par une variable d'environnement)
-- **EDIT 12/20** Très peu d'ouverture sur l'écosystème APM / Monitoring (pas de Datadog, blackfire.io, tideways.io)
-
-
+- **EDIT 12/20** Très peu d'ouverture sur l'écosystème PHP: APM / Monitoring (pas de Datadog, blackfire.io, tideways.io)
+- **EDIT 01/21** Ratio prix/performances bonnes
 
 #### 👍 Avantages
 
@@ -162,16 +155,14 @@ Voilà leur réponse:
 - Gestion des logs claire
 - Une alternative à Amazon S3 "maison", pour monter un espace de stockage non volatile
 - Une gestion optionelle d'un reverse proxy qui a l'air simplifiée (Varnish)
-- **EDIT 12/20** Très stable (Rex sur 1+an d'hebergement d'un projet chez eux)
-- **EDIT 12/20** Gestion multi-region (avec de l'OVH derrière)
+- **EDIT 12/20** Très stable (Rex sur 1an+ d'hébergement d'un projet chez eux)
+- **EDIT 12/20** Gestion multi-régions (avec l'aide d'OVH en coulisse)
 
 <br />
 
 #### ⛔️ **VERDICT : ELIMINÉ** ⛔️
 
-Les performances obtenues lors des tests justifient l'élimination de ce candidat. Il n'est pas possible de retenir une solution qui coûte 5 à 9 fois plus cher qu'un de ses concurrents.
-
-Rappel : je n'ai benchmarké qu'une application Wordpress chez eux, en aucun cas je ne peux dire que les performances (très mauvaises) que j'ai obtenues seront les mêmes pour d'autres types d'applications (PHP, Symfony, ou autre langages...).
+**EDIT 01/21** Les problèmes de rapport performance/prix, maintenant résolus, ont été les 2 raisons de l'élimination de Clever Cloud pour notre problématique d'hébergement en 2019. 
 
 ## Lire la partie IV
 
