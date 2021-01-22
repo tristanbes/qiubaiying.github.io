@@ -65,8 +65,6 @@ Une valeur trop haute, et ce sont les performances qui sont plombées à cause d
 | Hidora | 15,78€    | 2gb   |  256mb  | 2 042        | 239                   |
 | Hidora | 28,70€    | 2gb   |  512mb  | 1110        | 237                   |
 
-A défaut des autres hébergeurs, Hidora donne accès à tous les fichiers de configuration en SSH.
-Il est donc possible d'appliquer diverses optimisations pour réduire le temps de réponse. Néanmoins, ce n'est pas ce que je souhaite d'un PaaS
 
 #### Configuration des tests
 
