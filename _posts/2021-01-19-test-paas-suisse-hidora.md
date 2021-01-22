@@ -70,7 +70,7 @@ Pour **15,7€**/mois chez <u>Hidora</u>, j'obtiens **2 048ms** de moyenne de te
 Les performances ne sont donc pas bonnes par défaut. Je pense qu'il serait possible d'obtenir de meilleurs performances, mais n'ayant eu à appliquer d'autres améliorations sur les autres plateformes testés, je ne l'ai pas fait ici non plus.
 
 Pour plus de détail, voir :
-* Part7. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
+* Part7. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo VS Hidora]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
 
 
 Notons qu'Hidora propose une tarification à la ressource réellement consommée. Nous pouvons reserver 2Ghz/2Gb de RAM, et dire que nous autorisons jusqu'à 6Ghz/6Gb de RAM consommés. Si votre applicatif consomme par moment 3,4Ghz de CPU, vous serez facturé uniquement sur la base de cette consommation, et non la borne maximale (6Ghz) choisie ce qui permet de mieux maitriser les coûts lors de pics de charge.

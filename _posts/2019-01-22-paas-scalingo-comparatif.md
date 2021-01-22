@@ -51,7 +51,7 @@ Les tests parleront d'eux-mêmes dans le chapitre dédié. Notez que [Scalingo](
 
 Quelques fois, nous avons obtenu des performances bien meilleures lors de tests réalisés à des dates différentes chez Scalingo. Après avoir contacté le support, cela s'expliquerait par le voisinage. En effet, les scalers peuvent bouger de machine en machine selon leur charge. Si nous avons des voisins qui possèdent des scalers avec une très forte priorité CPU (donc qui payent plus cher) et qui sont très actifs sur le moment alors moins de temps CPU sera alors alloué à nos containers avec une priorité plus faible.
 
-* Part6. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
+* Part7. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo VS Hidora]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
 
 
 ### Résumé Scalingo (TLDR)

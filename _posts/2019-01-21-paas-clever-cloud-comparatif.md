@@ -127,7 +127,7 @@ Pour **10,8€**/mois chez <u>Scalingo</u>, j'obtiens **492ms** de moyenne de te
 
 Pour **20,3€**/mois chez <u>Clever Cloud</u>, j'obtiens **588ms**. C'est la somme <u>minimum</u> à débourser pour avoir des performances semblables.
 
-* Part7. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
+* Part7. [Comparatif PaaS : Les performances, Clever Cloud VS Scalingo VS Hidora]({% post_url 2019-01-24-clevercloud-vs-scalingo %})
 
 
 ### Résumé Clever Cloud (TLDR)
