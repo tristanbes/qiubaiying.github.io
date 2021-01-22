@@ -12,6 +12,8 @@ tags:
     - PaaS
     - Performances
     - Scalingo
+    - Hosting
+    - Cloud
 ---
 
 

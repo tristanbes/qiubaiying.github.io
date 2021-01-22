@@ -15,6 +15,8 @@ tags:
     - Platform.sh
     - OVH
     - Scalingo
+    - Hosting
+    - Cloud
 ---
 
 Contexte : Dans la société où je travaille actuellement, nous avons une partie agence web avec des solutions basées sur du **Wordpress** (PHP) et **Symfony** (PHP)

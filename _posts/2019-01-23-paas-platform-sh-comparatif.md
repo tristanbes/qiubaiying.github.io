@@ -12,6 +12,8 @@ tags:
     - PaaS
     - Platform.sh
     - Performances
+    - Hosting
+    - Cloud
 ---
 
 
