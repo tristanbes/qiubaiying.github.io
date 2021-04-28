@@ -77,6 +77,13 @@ Avec Docker:
 
 {% include image.html width="688" url="/img/vm-docker/docker-containers.jpg" description="Liste des containeurs Docker" %}
 
+## Aller plus loin
+
+Je n'aborde pas trop la technique dans cet article. Hugo Alliaume à repris le POC que j'ai réalisé en Août 2020, puis boudé, ainsi que la problématique à bras le corps et a mené le projet à son exécution sur tous les projets de l'équipe R&D. 
+
+Il à traité des parties un peu plus techniques dans son article: [Blog d'Hugo](https://hugo.alliau.me/)
+Je vous invite à lire son article, si vous avez besoin de plus de détail, ou même si vous voulez adopter un environement de développement similaire.
+
 ## Installation sous MacOS
 
 Ce chapitre s'adresse aux utilisateurs sous MacOS ❤️
@@ -165,11 +172,6 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 ```
-
-
-## Aller plus loin
-
-Hugo Alliaume à repris mon POC que j'ai réalisé en Août 2020, puis boudé, ainsi que la problématique à bras le corps et a mené le projet à son exécution sur tous les projets de l'équipe R&D. Il à traité des parties un peu plus techniques dans son blog: [Blog d'Hugo](https://hugo.alliau.me/)
 
 
 ## Remerciements
