@@ -30,24 +30,24 @@ Le pré-requis pour faire tourner les projets Symfony était aussi simple que d'
 - [Vagrant Landrush](https://github.com/vagrant-landrush/landrush), un DNS pour accéder aux URL de développement
 - [mkcert](https://github.com/FiloSottile/mkcert), pour générer le certificat TLS local
 
-L'utilisateur était invité alors à executer dans son terminal `make setup`, puis une vingtaine de minutes plus tard, le projet était complètement opérationnel, les données de la base de données importés et toute l'équipe sur les mêmes versions majeurs de PHP, Nginx, PostgreSQL.
+L'utilisateur était invité alors à exécuter dans son terminal `make setup`, puis une vingtaine de minutes plus tard, le projet était complètement opérationnel, les données de la base de données importés et toute l'équipe sur les mêmes versions majeures de PHP, Nginx, PostgreSQL.
 
-Seulement voilà, nous sommes en 2021 et il y à eu du changement par rapport aux années 2014/2015, ce qui nous à poussé à abandonner ce modèle de machines virtuelles (VM).
+Seulement voilà, nous sommes en 2021 et il y a eu du changement par rapport aux années 2014/2015, ce qui nous a poussé à abandonner ce modèle de machines virtuelles (VM).
 
 ## Pourquoi s'éloigner du modèle VM ?
 
 Plusieures raisons m'ont poussé à nous éloigner du modèle de VM: 
-* Les **performances** un peu en retrait (surtout sur Linux si j'en crois mon équipe) par rapport à du local.
-* Le **poids** des machines virtuelles (compter plusieurs Go par projets)
-* Docker qui devenait de plus en plus mature et qui a un bon taux d'adoption sur les environnements de dev dans la communauté.
+* Docker qui devient de plus en plus mature et qui a un bon taux d'adoption sur les environnements de dev dans la communauté.
+* Les performances un peu en retrait (surtout sur Linux si j'en crois mon équipe) par rapport à du local.
+* Le poids des machines virtuelles (compter plusieurs Go par projets)
 
-Etait-ce suffisant pour faire arrêter une date butoire de transition vers autre chose ? former les équipes ? Faire évoluer nos dizaines de projets vers une autre environnement de développement basé sur du Docker ? Pas tout à fait... surtout quand on entends que les performances avec Docker sur un hôte MacOS est désastreuses lors d'opérations lourdes en lecture/écriture.
+Était-ce suffisant pour faire arrêter une date butoire de transition vers autre chose ? Former les équipes ? Faire évoluer nos dizaines de projets vers une autre environnement de développement basé sur du Docker ? Pas tout à fait... surtout quand on entend que les performances avec Docker sur un hôte MacOS est désastreuses au pire, pas folle au mieux, lors d'opérations sur des volumes partagés.
 
-L'élément qui à permis de faire basculer la balance vers "autre chose" est [l'annonce discrète par l'équipe de VirtualBox](https://forums.virtualbox.org/viewtopic.php?f=8&t=98742#wrap) qui ne pouvait techniquement pas porter VirtualBox sur un processeur ARM. VirtualBox, qui fait tourner la VM, est un hyperviseur, et non un émulateur. VirtualBox ne peux donc pas émuler un porcesseur x86. Le portage de VirtualBox ne peut donc pas s'effectuer sur un Mac avec un processeur sous ARM.
+L'élément qui à permis de faire basculer la balance vers "autre chose" est [l'annonce discrète par l'équipe de VirtualBox](https://forums.virtualbox.org/viewtopic.php?f=8&t=98742#wrap) qui ne pouvait techniquement pas porter VirtualBox sur un processeur ARM. VirtualBox, qui fait tourner la VM, est un hyperviseur, et non un émulateur. VirtualBox ne peut donc pas émuler un processeur x86. Le portage de VirtualBox ne peut donc pas s'effectuer sur un Mac avec un processeur sous ARM.
 
 En quoi ça nous concerne ? Et bien peut-être avez vous raté [l'annonce d'Apple](https://nr.apple.com/dE7O5p9q0t) de leur plan de transition vers une architecture ARM en 2 ans environ avec leur puce "M1" (qui envoie du lourd).
 
-Je vois venir les troll d'Apple au loin, mais dans mon équipe, j'ai toujours eu coeur à proposer aux dévveloppeurs/euses le choix entre du Linux et du MacOS. Donc merci de rediriger vos troll vers les seuls qui le méritent: les devs PHP/JS sous Windows.
+Je vois venir les troll d'Apple au loin, mais dans mon équipe, j'ai toujours eu à coeur de proposer aux développeurs/euses le choix entre du Linux et du MacOS. Donc merci de rediriger vos troll vers les seuls qui le méritent: les devs PHP/JS sous Windows.
 
 
 ## Une solution hybride basée sur Docker et du local
@@ -79,11 +79,11 @@ Avec Docker:
 
 ## Installation sous MacOS
 
-Ce chapitre s'addresse aux utilisateurs sous MacOS ❤️
+Ce chapitre s'adresse aux utilisateurs sous MacOS ❤️
 
 ### Prérequis
 
-Installation de [`brew`](https://brew.sh/index_fr) necessaire pour installer d'autres dépendances (gestionnaire de packets pour MacOS)
+Installation de [`brew`](https://brew.sh/index_fr) nécessaire pour installer d'autres dépendances (gestionnaire de paquets pour MacOS)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -104,7 +104,7 @@ brew install php@7.4 # installe php 7.4
 brew install php@7.3 # ...
 ```
 
-Si vous avez des projets sous différentes versions de PHP, pas de soucis, installez toutes les versions de PHP necessaires à vos projets, Symfony utilisera la bonne version grace au fichier `.php-version` déposé à la racine de votre projet.
+Si vous avez des projets sous différentes versions de PHP, pas de soucis, installez toutes les versions de PHP nécessaires à vos projets, Symfony utilisera la bonne version grâce au fichier `.php-version` déposé à la racine de votre projet.
 
 {% include image.html width="688" url="/img/vm-docker/symfony-cli-php-version.jpg" description="Détection des différentes versions de PHP installées sur votre machine tel que vu par le binaire Symfony" %}
 
@@ -127,16 +127,16 @@ brew install node # installe la dernière version stable de NodeJS, soit la vers
 brew install node@14 # installe la nodeJS 14
 brew install node@12 # ...
 
-brew install yarn # si vous avez besoin du gestionaire de dépendence JS Yarn
+brew install yarn # si vous avez besoin du gestionnaire de dépandance JS Yarn
 ```
 
-Sur le même schema, si vous avez des projets sous différentes versions de NodeJS, installez toutes les versions necessaires à vos projets, nous utiliserons `nvm` qui permet d'utiliser la bonne version de node selon le projet (la version étant contenue dans le fichier à la racine du projet `.nvmrc`).
+Sur le même schéma, si vous avez des projets sous différentes versions de NodeJS, installez toutes les versions nécessaires à vos projets, nous utiliserons `nvm` qui permet d'utiliser la bonne version de node selon le projet (la version étant contenue dans le fichier à la racine du projet `.nvmrc`).
 
 ```bash 
 brew install nvm
 ```
 
-Enfin lorsque vous lancerez votre `yarn install` ou `yarn dev-server` pour éviter de faire un `nvm use` pour selectionner la bonne version de nodejs, vous pouvez ajouter ce bloc dans votre `~/.zshrc` (puis relancer votre terminal, ou executez `source ~/.zshrc`). Cela aura pour effet de regarder si dans votre chemin courant, un `.nvmrc` existe avec une version de node spécifique au projet, et l'utilise, si elle est installée.
+Enfin lorsque vous lancerez votre `yarn install` ou `yarn dev-server` pour éviter de faire un `nvm use` pour sélectionner la bonne version de nodejs, vous pouvez ajouter ce bloc dans votre `~/.zshrc` (puis relancer votre terminal, ou executez `source ~/.zshrc`). Cela aura pour effet de regarder si dans votre chemin courant, un `.nvmrc` existe avec une version de node spécifique au projet, et l'utilise, si elle est installée.
 
 ```bash
 export NVM_DIR="$HOME/.nvm"
@@ -169,7 +169,7 @@ load-nvmrc
 
 ## Aller plus loin
 
-Hugo Alliaume à repris mon POC que j'ai réalisé an Août 2020, puis boudé, ainsi que la problématique à bras le corps et a mené le projet a son exécution sur tous les projets de l'équipe R&D. Il à traité des parties un peu plus techniques dans son blog: [Blog d'Hugo](https://hugo.alliau.me/)
+Hugo Alliaume à repris mon POC que j'ai réalisé en Août 2020, puis boudé, ainsi que la problématique à bras le corps et a mené le projet à son exécution sur tous les projets de l'équipe R&D. Il à traité des parties un peu plus techniques dans son blog: [Blog d'Hugo](https://hugo.alliau.me/)
 
 
 ## Remerciements
