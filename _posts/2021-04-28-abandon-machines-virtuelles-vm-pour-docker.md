@@ -34,9 +34,9 @@ L'utilisateur était invité alors à exécuter dans son terminal `make setup`, 
 
 Seulement voilà, nous sommes en 2021 et il y a eu du changement par rapport aux années 2014/2015, ce qui nous a poussé à abandonner ce modèle de machines virtuelles (VM).
 
-## Pourquoi s'éloigner du modèle VM ?
+## Pourquoi s'éloigner du modèle machines virtuelles ?
 
-Plusieures raisons m'ont poussé à nous éloigner du modèle de VM: 
+Plusieurs arguments nous ont poussés vers l'abandon des VM: 
 * Docker qui devient de plus en plus mature et qui a un bon taux d'adoption sur les environnements de dev dans la communauté.
 * Les performances un peu en retrait (surtout sur Linux si j'en crois mon équipe) par rapport à du local.
 * Le poids des machines virtuelles (compter plusieurs Go par projets)
