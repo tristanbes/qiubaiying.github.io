@@ -66,13 +66,15 @@ Sur la machine hôte (macOS/Linux) :
 * Symfony CLI. Ce dernier offre un serveur web avec gestion du TLS, le support docker, et la gestion des versions de PHP spécifiques.
 * Binaire Manala (Permettra de générer votre `docker-compose.yaml` d'après un template. Voir [aller plus loin](#aller-plus-loin))
 
-⚠ Malgré tous les avantages qu'offre Symfony CLI, ce dernier n'est pas open source. C'est à noter, surtout si on se repose dessus pour une usine de développement
+⚠ Malgré tous les avantages qu'offre Symfony CLI, ce dernier n'est pas open source. C'est à noter, surtout si on se repose dessus pour une usine de développement. 
 
 Avec Docker : 
 * Base de données (MySQL, PostgreSQL, MariaDB...)
 * Serveur Redis
 
 {% include image.html width="688" url="/img/vm-docker/docker-containers.jpg" description="Liste des containeurs Docker" %}
+
+L'expérience de développement avec cette nouvelle stack hybride est vraiment très plaisante et rapide, je retrouve les performances natives de ma machine.
 
 ## Aller plus loin
 
