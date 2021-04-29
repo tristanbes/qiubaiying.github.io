@@ -17,7 +17,7 @@ tags:
 ---
 ## Contexte
 
-Depuis mai 2015, le modèle chez Yproximité de "tout installer à la main en local en 1/2 journée" à été abandonné pour une solution basée sur une machine virtuelle, configurée à l'aide de playbook [Ansible](https://www.ansible.com/) afin qu'en une commande, l'environnement de développement soit opérationnel après quelques minutes.
+Depuis mai 2015, le modèle chez Yproximité de "tout installer à la main en local en 1/2 journée" a été abandonné pour une solution basée sur une machine virtuelle, configurée à l'aide de playbook [Ansible](https://www.ansible.com/) afin qu'en une commande, l'environnement de développement soit opérationnel après quelques minutes.
 
 Les prérequis pour faire tourner les **projets Symfony** consistait à installer :
 
