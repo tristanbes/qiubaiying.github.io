@@ -17,9 +17,9 @@ tags:
 ---
 ## Contexte
 
-Depuis mai 2015, le modèle "tout installer à la main en local en 1/2 journée" à été abandonné pour une solution basée sur une machine virtuelle, configurée à l'aide de playbook [Ansible](https://www.ansible.com/) afin qu'en une commande, l'environnement de développement soit opérationnel en quelques minutes.
+Depuis mai 2015, le modèle chez Yproximité de "tout installer à la main en local en 1/2 journée" à été abandonné pour une solution basée sur une machine virtuelle, configurée à l'aide de playbook [Ansible](https://www.ansible.com/) afin qu'en une commande, l'environnement de développement soit opérationnel après quelques minutes.
 
-Les prérequis pour faire tourner les projets Symfony consistait à installer :
+Les prérequis pour faire tourner les **projets Symfony** consistait à installer :
 
 * Make, afin de lancer les commandes
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads), pour la VM
@@ -27,7 +27,7 @@ Les prérequis pour faire tourner les projets Symfony consistait à installer :
 - [Vagrant Landrush](https://github.com/vagrant-landrush/landrush), un DNS pour accéder aux URL de développement
 - [mkcert](https://github.com/FiloSottile/mkcert), pour générer le certificat TLS local
 
-L'utilisateur était invité alors à exécuter dans son terminal `make setup`, puis une vingtaine de minutes plus tard, le projet était complètement opérationnel, les données de la base de données importés et toute l'équipe sur les mêmes versions majeures de PHP, Nginx, PostgreSQL.
+L'utilisateur était alors invité alors à exécuter dans son terminal `make setup`, puis une vingtaine de minutes plus tard, le projet était complètement opérationnel, les données de la base de données importés et toute l'équipe sur les mêmes versions mineures de PHP, Nginx, PostgreSQL.
 
 ❤️ Je tiens d'ailleurs à remercier les contributeurs du projet [manala.io]([manala.io](https://www.manala.io/)) porté par mon ancienne agence web, [Elao](https://www.elao.com/) et notamment [Nervo](https://github.com/nervo) qui maintient les différents [rôles Ansible](https://github.com/manala/ansible-roles). Merci pour leurs contributions open source et d'avoir permis de faire tourner notre usine de développement pendant 6 ans.
 
@@ -40,33 +40,33 @@ Plusieurs arguments étaient pour l'abandon des VM :
 * Les performances un peu en retrait (surtout sur Linux si j'en crois mon équipe) par rapport à une installation locale du projet.
 * Le poids des machines virtuelles (compter plusieurs Go par projets)
 
-Néanmoins, l'idée d'adopter une usine de développement uniquement basée sur Docker m'a énormément freiné. Avec une équipe réduite et sans compétence Docker particulière (notamment pour les problématiques de performances MacOS vs Linux) ce choix s'avère risqué pour la stabilité de l'environnement de développement, qui doit être là pour permettre aux développeurs d'être le plus productif, et non pas comme étant une source de frustration, ou de ralentissement.
+Néanmoins, l'idée d'adopter une usine de développement uniquement basée sur Docker m'a énormément freiné. Avec une équipe réduite et sans compétence Docker particulière (notamment pour les problématiques de performances macOS vs Linux) ce choix s'avère risqué pour la stabilité de l'environnement de développement, qui doit être là pour permettre aux développeurs d'être le plus productif, et non pas comme étant une source de frustration, ou de ralentissement.
 
-Je savais que les VM allaient bientôt être poussé vers la sortie, mais était-ce suffisant pour arrêter une date butoire de transition vers autre chose ? Prévoir un plan de formation ? Faire évoluer nos dizaines de projets vers un autre environnement de développement basé sur du Docker ? Pas tout à fait... 
+Je savais que les VM allaient bientôt être poussées vers la sortie, mais était-ce suffisant pour arrêter une date butoire de transition vers autre chose ? Prévoir un plan de formation ? Faire évoluer nos dizaines de projets vers un autre environnement de développement basé sur du Docker ? Pas tout à fait... 
 
 L'élément qui à permis de faire basculer la balance vers "autre chose" est [l'annonce discrète par l'équipe de VirtualBox](https://forums.virtualbox.org/viewtopic.php?f=8&t=98742#wrap) qui dit ne pas pouvoir techniquement porter VirtualBox sur un processeur ARM. VirtualBox, qui fait tourner les VM, est un hyperviseur, et non un émulateur CPU. VirtualBox ne peut donc pas émuler un processeur x86.
 
-En quoi c'est gênant ? Et bien peut-être avez vous raté [l'annonce d'Apple](https://nr.apple.com/dE7O5p9q0t) de leur plan de transition vers une architecture ARM sous 2 ans environ en débutant par leur puce "M1" (qui envoie du lourd), équipant les MacBook Pro 13", le MacBook Air et le Mac Mini. Il semblerait même que devant les retours extrêmement positif des utilisateurs, la firme ait même acceléré le déploiement de la nouvelle architecture ARM en annoncant il y à quelques jours les iMac 24" et les iPad Pro avec la puce M1. Pour le grand public, il ne reste donc plus que le MacBook Pro 16" et l'iMac 27" à sauter le cap.
+En quoi c'est gênant ? Et bien peut-être avez vous raté [l'annonce d'Apple](https://nr.apple.com/dE7O5p9q0t) de leur plan de transition vers une architecture ARM sous 2 ans environ en débutant par leur puce "M1" (qui envoie du lourd), équipant les MacBook Pro 13", le MacBook Air et le Mac Mini. Il semblerait même que devant les retours extrêmement positifs des utilisateurs, la firme ait même acceléré le déploiement de la nouvelle architecture ARM en annoncant il y à quelques jours les iMac 24" et les iPad Pro avec la puce M1. Pour le grand public, il ne reste donc plus que le MacBook Pro 16" et l'iMac 27" à sauter le cap.
 
 {% include image.html width="688" url="/img/vm-docker/apple-m1.jpg" description="Illustration du processeur d'Apple sous architecture ARM baptisé M1" %}
 
 
-Je vois venir les troll d'Apple au loin, mais dans mon équipe, j'ai toujours eu à coeur de proposer aux développeurs/euses le choix entre du Linux et du MacOS ([voir baromètre AFUP pour les répartions d'OS](https://barometre.afup.org/report/os_developpment?filter%5Bcampaign%5D%5B%5D=6&filter%5Bcampaign%5D%5B%5D=7&filter%5Bcampaign%5D%5B%5D=8&filter%5Bsalary%5D%5Bmin%5D=&filter%5Bsalary%5D%5Bmax%5D=&filter%5Bsubmit%5D=)). Donc merci de rediriger les troll vers les seuls qui le méritent : les devs PHP/JS sous Windows.
+Je vois venir les trolls d'Apple au loin, mais dans mon équipe, j'ai toujours eu à cœur de proposer aux développeurs/euses le choix entre du Linux et du macOS ([voir baromètre AFUP pour les répartions d'OS](https://barometre.afup.org/report/os_developpment?filter%5Bcampaign%5D%5B%5D=6&filter%5Bcampaign%5D%5B%5D=7&filter%5Bcampaign%5D%5B%5D=8&filter%5Bsalary%5D%5Bmin%5D=&filter%5Bsalary%5D%5Bmax%5D=&filter%5Bsubmit%5D=)). Donc merci de rediriger les troll vers les seuls qui le méritent : les devs PHP/JS sous Windows.
 
 ## Une solution propulsée par Docker, mais pas que !
 
-Dans mon contexte d'entreprise et d'équipe, une solution basé uniquement sur Docker est compromise tant que le problème de performance soit définitivement reglé sur Mac et qu'il n'y à pas besoin d'un  Docker/Linux pour implémenter la solution.
+Dans mon contexte d'entreprise et d'équipe, une solution basée uniquement sur Docker est compromise tant que le problème de performance soit définitivement reglé sur Mac et qu'il n'y a pas besoin d'un  Docker/Linux pour implémenter la solution.
 
 J'ai donc choisi de pousser l'adoption d'une solution hybride afin d'éviter les volumes partagés (et donc pas de problème de performances). Il semblerait, d'après ma mémoire de SymfonyLive que ça soit aussi le choix de [Fabien Potencier](https://twitter.com/fabpot).
 
-Sur la machine hôte (MacOS/Linux) :
+Sur la machine hôte (macOS/Linux) :
 * PHP et composer
 * NodeJS
 * Docker Desktop
 * Symfony CLI. Ce dernier offre un serveur web avec gestion du TLS, le support docker, et la gestion des versions de PHP spécifiques.
 * Binaire Manala (Permettra de générer votre `docker-compose.yaml` d'après un template. Voir [aller plus loin](#aller-plus-loin))
 
-⚠ Malgré tous les avantages qu'offre Symfony CLI, ce dernier n'est pas open source. C'est à noter, surtout si on se repose dessus pour une usine de développement
+⚠ Malgré tous les avantages qu'offre Symfony CLI, ce dernier n'est pas open source. C'est à noter, surtout si on se repose dessus pour une usine de développement. 
 
 Avec Docker : 
 * Base de données (MySQL, PostgreSQL, MariaDB...)
@@ -74,9 +74,11 @@ Avec Docker :
 
 {% include image.html width="688" url="/img/vm-docker/docker-containers.jpg" description="Liste des containeurs Docker" %}
 
+L'expérience de développement avec cette nouvelle stack hybride est vraiment très plaisante et rapide, je retrouve les performances natives de ma machine.
+
 ## Aller plus loin
 
-Hugo Alliaume a repris le POC que j'ai réalisé en Août 2020 et levé tous les points de bloquages. Il s'est saisi de la problématique à bras le corps et a mené le projet de transition à son exécution sur tous les projets de l'équipe R&D.
+[Hugo Alliaume](https://twitter.com/HugoAlliaume) a repris le POC que j'ai réalisé en Août 2020 et levé tous les points de bloquages. Il s'est saisi de la problématique à bras le corps et a mené le projet de transition à son exécution sur tous les projets de l'équipe R&D.
 
 Il a abordé des parties plus techniques dans sur son blog, notamment :
 * Une analyse plus poussée des limites des VM et des workaround nécessaires
@@ -87,13 +89,13 @@ Il a abordé des parties plus techniques dans sur son blog, notamment :
 
 📖&nbsp; Je vous invite à lire son article : [migration de notre stack de développement vers Docker](https://hugo.alliau.me/2021/04/26/migration-stack-developpement/).
 
-## Installation des prérequis sous MacOS
+## Installation des prérequis sous macOS
 
-Ce chapitre s'adresse aux utilisateurs sous MacOS 🍎 qui souhaiteraient retrouver ici toutes les procédures d'installations des outils sur votre machine. 
+Ce chapitre s'adresse aux utilisateurs sous macOS 🍎 qui souhaiteraient retrouver ici toutes les procédures d'installation des outils sur votre machine. 
 
 ### Prérequis
 
-Installation de [`brew`](https://brew.sh/index_fr) le gestionnaire de paquets pour MacOS.
+Installation de [`brew`](https://brew.sh/index_fr) le gestionnaire de paquets pour macOS.
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
