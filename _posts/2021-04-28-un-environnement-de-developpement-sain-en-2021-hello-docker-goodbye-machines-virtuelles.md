@@ -55,7 +55,7 @@ Je vois venir les trolls d'Apple au loin, mais dans mon équipe, j'ai toujours e
 
 ## Une solution propulsée par Docker, mais pas que !
 
-Dans mon contexte d'entreprise et d'équipe, une solution basée uniquement sur Docker est compromise tant que le problème de performance soit définitivement reglé sur Mac et qu'il n'y a pas besoin d'un  Docker/Linux pour implémenter la solution.
+Dans mon contexte d'entreprise et d'équipe, une solution basée uniquement sur Docker est compromise tant que le problème de performance soit définitivement reglé sur Mac ou qu'il y ait besoin d'une ressource experte Docker/Linux pour implémenter la solution.
 
 J'ai donc choisi de pousser l'adoption d'une solution hybride afin d'éviter les volumes partagés (et donc pas de problème de performances). Il semblerait, d'après ma mémoire de SymfonyLive que ça soit aussi le choix de [Fabien Potencier](https://twitter.com/fabpot).
 
@@ -219,3 +219,5 @@ windows:
 ```
 
 Il ne vous reste plus qu'à retenir `mux start <nom_du_projet>` et `mux stop <nom_du_projet>` et le tour est joué.
+
+Une typo ? L'article est disponible sur mon [dépôt Github](https://github.com/tristanbes/devops-life/blob/gh-pages/_posts/2021-04-28-un-environnement-de-developpement-sain-en-2021-hello-docker-goodbye-machines-virtuelles.md)
