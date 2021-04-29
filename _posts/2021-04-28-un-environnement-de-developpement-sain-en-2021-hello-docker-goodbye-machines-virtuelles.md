@@ -29,7 +29,7 @@ Les prérequis pour faire tourner les **projets Symfony** consistait à installe
 
 L'utilisateur était alors invité alors à exécuter dans son terminal `make setup`, puis une vingtaine de minutes plus tard, le projet était complètement opérationnel, les données de la base de données importés et toute l'équipe sur les mêmes versions mineures de PHP, Nginx, PostgreSQL.
 
-❤️ Je tiens d'ailleurs à remercier les contributeurs du projet [manala.io]([manala.io](https://www.manala.io/)) porté par mon ancienne agence web, [Elao](https://www.elao.com/) et notamment [Nervo](https://github.com/nervo) qui maintient les différents [rôles Ansible](https://github.com/manala/ansible-roles). Merci pour leurs contributions open source et d'avoir permis de faire tourner notre usine de développement pendant 6 ans.
+❤️ Je tiens d'ailleurs à remercier les contributeurs du projet [manala.io](https://www.manala.io/) porté par mon ancienne agence web, [Elao](https://www.elao.com/) et notamment [Nervo](https://github.com/nervo) qui maintient les différents [rôles Ansible](https://github.com/manala/ansible-roles). Merci pour leurs contributions open source et d'avoir permis de faire tourner notre usine de développement pendant 6 ans.
 
 Nous sommes maintenant en 2021. Qu'est-ce qui m'a poussé à prévoir ce changement d'usine de développement et à abandonner ce modèle de machines virtuelles (VM) ?
 
