@@ -7,7 +7,7 @@ categories:
 catalog: true
 date:       2024-11-28
 author:     Tristan Bessoussa
-header-img: https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80
+header-img: /images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80
 tags: ["AI", "Development", "Personal Project", "CrossFit", "Technology"]
 ---
 
@@ -21,7 +21,7 @@ Here's the kicker: I'm terrible at planning ahead. My only hope was to pounce on
 
 ## The Light Bulb Moment
 
-As someone who coded for a decade before moving into a CTO role, I knew there had to be a better way. The solution was clear: why wait for delayed push notifications when I could query the API directly? But there was a catch - while the concept was simple, the modern development landscape had evolved significantly since my coding days.
+As someone who coded for a decade before getting more hands-off, I knew there had to be a better way. The solution was clear: why wait for delayed push notifications when I could query the API directly (which is not public by the way) ? But there was a catch - while the concept was simple, the modern development landscape had evolved significantly since my coding days.
 
 ## Enter AI: My Unexpected Coding Buddy
 
@@ -30,7 +30,7 @@ Last week, I decided to test all the "AI coding hype" I'd been seeing on social 
 The process was fascinating:
 
 1. I started small, asking AI to create an interface displaying available classes, participant counts, and waitlist numbers
-2. I extracted network calls from the official app and fed them to Claude
+2. I extracted network calls (.HAR) from the official web app and fed them to Claude
 3. Within an hour, I had my first "wow" moment - what would have taken me 4 hours in my familiar tech stack, I accomplished in unfamiliar territory (Astro & React)
 
 ## The Reality Check: AI Isn't Magic, It's a Partnership
@@ -44,7 +44,7 @@ The key was learning to provide context effectively, whether sharing specific fi
 
 ## The CTO Perspective: A Game-Changing Realization
 
-This experience transformed my view on AI tools in development. While my team already uses GitHub Copilot and Cursor, this personal project revealed the true potential of AI-assisted development. It's not about replacing developers - it's about forming an effective partnership with AI tools.
+This experience transformed my view on AI tools in development. While some of my team already uses GitHub Copilot or Cursor, this personal project revealed the true potential of AI-assisted development. It's not about replacing developers - it's about forming an effective partnership with AI tools.
 
 ## Key Takeaways
 
@@ -57,4 +57,6 @@ P.S. Did my evil plan work? Absolutely. My success rate for getting into cancell
 
 ---
 
-*This post was written by [Your Name], CTO at Wamiz, where we're constantly exploring ways to blend technology with practical solutions - even if it means gaming the system for a better workout! 💪* 
+*This post was written by Tristan Bessoussa, CTO at Wamiz (Nestlé), where I am exploring ways to blend technology with practical solutions - even if it means gaming the system for a better workout! 💪* 
+
+*This post was then enhanced by AI, and If you read this it until the very end, it means the AI was better at writing than me*
