@@ -51,9 +51,17 @@ This experience transformed my view on AI tools in development. While some of my
 1. **Clear Requirements Matter**: AI needs well-defined scope and expectations
 2. **Context is King**: The limiting factor is often human communication - vague requests yield vague results
 3. **Embrace Evolution**: Tech constantly changes; while core concepts remain, tools and frameworks evolve
-4. **AI as an Enabler**: It can help experienced developers work with unfamiliar technologies more effectively
+4. **AI as an Enabler**: It can help experienced developers work with unfamiliar technologies more effectively. 
 
-P.S. Did my evil plan work? Absolutely. My success rate for getting into cancelled CrossFit slots jumped from 20% to 90%. Sometimes the best coding projects start with a selfish need! 
+For experienced developers, this can be a **true game-changer**, enabling them to work **XX% faster** even when dealing with unfamiliar technologies.
+
+For junior developers, it’s a powerful learning tool, accelerating their understanding of new technologies. However, there’s a potential downside: relying too heavily on AI could hinder their ability to develop essential skills and gain a deeper understanding of what’s happening “under the hood.”
+
+For non-technical individuals, as of 2024, it might still be a bit early to create fully functional code from scratch without a technical foundation. That said, it serves as an excellent communication aid, empowering them to convey their ideas to developers with greater clarity and precision.
+At this point of time (and it could change), I don't see AI replacing developpers, because it required me using my experience and knowledge of the 
+
+P.S. Did my evil plan work? Absolutely. My success rate for getting into cancelled CrossFit slots jumped from 20% to 100%. More importantly, it freed my mind from having to constantly be prepared to jump on my phone for cancellations notifications. 
+Sometimes the best coding projects start with a selfish need! 
 
 ---
 
